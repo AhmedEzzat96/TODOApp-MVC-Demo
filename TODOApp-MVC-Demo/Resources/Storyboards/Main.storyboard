@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Todo List-->
+        <scene sceneID="6QD-ah-ejZ">
+            <objects>
+                <viewController storyboardIdentifier="TodoListVC" id="xko-eu-rsM" customClass="TodoListVC" customModule="TODOApp_MVC_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dah-yt-EtK">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Tasks Found!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQI-gs-5WT">
+                                <rect key="frame" x="41.5" y="412.5" width="331" height="81"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="21"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8Xb-Ed-8Rx">
+                                <rect key="frame" x="0.0" y="44" width="414" height="852"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="separatorColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="mQI-gs-5WT" firstAttribute="height" secondItem="dah-yt-EtK" secondAttribute="height" multiplier="0.09" id="17o-ll-y0F"/>
+                            <constraint firstItem="8Xb-Ed-8Rx" firstAttribute="leading" secondItem="ze1-gk-Kar" secondAttribute="leading" id="3Tw-kr-GMV"/>
+                            <constraint firstItem="ze1-gk-Kar" firstAttribute="trailing" secondItem="8Xb-Ed-8Rx" secondAttribute="trailing" id="6QW-m7-UOZ"/>
+                            <constraint firstAttribute="bottom" secondItem="8Xb-Ed-8Rx" secondAttribute="bottom" id="QMl-Wj-rc2"/>
+                            <constraint firstItem="mQI-gs-5WT" firstAttribute="centerY" secondItem="ze1-gk-Kar" secondAttribute="centerY" id="WQC-iY-8V3"/>
+                            <constraint firstItem="8Xb-Ed-8Rx" firstAttribute="top" secondItem="ze1-gk-Kar" secondAttribute="top" id="ZVW-IJ-Sk0"/>
+                            <constraint firstItem="mQI-gs-5WT" firstAttribute="centerX" secondItem="ze1-gk-Kar" secondAttribute="centerX" id="fTh-83-Hde"/>
+                            <constraint firstItem="mQI-gs-5WT" firstAttribute="width" secondItem="dah-yt-EtK" secondAttribute="width" multiplier="0.8" id="sL8-hr-a8O"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ze1-gk-Kar"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Todo List" id="9q1-1f-qKb">
+                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="bwz-bQ-rBY">
+                            <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="deleteBtnPressed:" destination="xko-eu-rsM" id="rBN-hI-9gB"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Profile" image="person.circle" catalog="system" id="FkV-Yf-Pbr">
+                                <connections>
+                                    <action selector="profileBtnPressed:" destination="xko-eu-rsM" id="Bo3-bq-7hE"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="add" id="Q9r-OG-as3">
+                                <connections>
+                                    <action selector="addBtnPressed:" destination="xko-eu-rsM" id="tp5-fF-6Ft"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="noTasksLabel" destination="mQI-gs-5WT" id="dLY-uG-emT"/>
+                        <outlet property="tableView" destination="8Xb-Ed-8Rx" id="2VZ-fc-skY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="25t-os-KyK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="950.72463768115949" y="97.767857142857139"/>
+        </scene>
+        <!--Add TodoVC-->
+        <scene sceneID="ebe-tP-JBM">
+            <objects>
+                <viewController storyboardIdentifier="AddTodoVC" id="Lio-cU-NZP" customClass="AddTodoVC" customModule="TODOApp_MVC_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FFU-Yo-NU6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NwQ-Ix-nlS">
+                                <rect key="frame" x="62" y="229" width="290" height="448"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuQ-fr-fgk">
+                                        <rect key="frame" x="253.5" y="5" width="31.5" height="31.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="wuQ-fr-fgk" secondAttribute="height" multiplier="1:1" id="yjr-QU-ZEH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" image="x.circle" catalog="system"/>
+                                        <connections>
+                                            <action selector="cancelBtnPressed:" destination="Lio-cU-NZP" eventType="touchUpInside" id="3hb-Eg-Z0b"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="wuQ-fr-fgk" firstAttribute="top" secondItem="NwQ-Ix-nlS" secondAttribute="top" constant="5" id="5pK-MI-lFx"/>
+                                    <constraint firstItem="wuQ-fr-fgk" firstAttribute="height" secondItem="NwQ-Ix-nlS" secondAttribute="height" multiplier="0.07" id="Tpo-Fo-YiE"/>
+                                    <constraint firstAttribute="trailing" secondItem="wuQ-fr-fgk" secondAttribute="trailing" constant="5" id="WxI-Mv-9HP"/>
+                                    <constraint firstItem="wuQ-fr-fgk" firstAttribute="leading" relation="lessThanOrEqual" secondItem="NwQ-Ix-nlS" secondAttribute="leading" constant="253.5" id="xdW-di-3EX"/>
+                                </constraints>
+                            </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Description..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SXM-Ac-oh1">
+                                <rect key="frame" x="91" y="393.5" width="232" height="44.5"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="17"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lsR-AW-CpR">
+                                <rect key="frame" x="91" y="473" width="232" height="45"/>
+                                <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="20"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="saveBtnPressed:" destination="Lio-cU-NZP" eventType="touchUpInside" id="SnG-hw-5fj"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NwQ-Ix-nlS" firstAttribute="centerX" secondItem="6NO-RH-uvm" secondAttribute="centerX" id="4nR-0o-dHf"/>
+                            <constraint firstItem="SXM-Ac-oh1" firstAttribute="width" secondItem="NwQ-Ix-nlS" secondAttribute="width" multiplier="0.8" id="89C-yS-pRM"/>
+                            <constraint firstItem="NwQ-Ix-nlS" firstAttribute="height" secondItem="FFU-Yo-NU6" secondAttribute="height" multiplier="0.5" id="NI2-Es-eBb"/>
+                            <constraint firstItem="SXM-Ac-oh1" firstAttribute="centerX" secondItem="NwQ-Ix-nlS" secondAttribute="centerX" id="T8J-k5-ysb"/>
+                            <constraint firstItem="SXM-Ac-oh1" firstAttribute="height" secondItem="NwQ-Ix-nlS" secondAttribute="height" multiplier="0.1" id="UiX-wT-RUH"/>
+                            <constraint firstItem="NwQ-Ix-nlS" firstAttribute="centerY" secondItem="6NO-RH-uvm" secondAttribute="centerY" id="ZvB-gR-GrZ"/>
+                            <constraint firstItem="lsR-AW-CpR" firstAttribute="top" secondItem="SXM-Ac-oh1" secondAttribute="bottom" constant="35" id="j0t-ih-Add"/>
+                            <constraint firstItem="lsR-AW-CpR" firstAttribute="width" secondItem="SXM-Ac-oh1" secondAttribute="width" id="nby-Gl-g2Z"/>
+                            <constraint firstItem="lsR-AW-CpR" firstAttribute="centerX" secondItem="SXM-Ac-oh1" secondAttribute="centerX" id="ohM-VS-FNa"/>
+                            <constraint firstItem="NwQ-Ix-nlS" firstAttribute="width" secondItem="FFU-Yo-NU6" secondAttribute="width" multiplier="0.7" id="ohU-WY-0z8"/>
+                            <constraint firstItem="lsR-AW-CpR" firstAttribute="height" secondItem="SXM-Ac-oh1" secondAttribute="height" id="qwc-Sd-JtV"/>
+                            <constraint firstItem="SXM-Ac-oh1" firstAttribute="top" secondItem="wuQ-fr-fgk" secondAttribute="bottom" constant="128" id="rzj-gh-XjG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6NO-RH-uvm"/>
+                    </view>
+                    <connections>
+                        <outlet property="addTodoView" destination="NwQ-Ix-nlS" id="P6B-nT-wb3"/>
+                        <outlet property="descriptionTextField" destination="SXM-Ac-oh1" id="Rud-5E-LyI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EzG-pl-G9T" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1613.0434782608697" y="98.4375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="person.circle" catalog="system" width="128" height="121"/>
+        <image name="x.circle" catalog="system" width="128" height="121"/>
+    </resources>
+</document>
