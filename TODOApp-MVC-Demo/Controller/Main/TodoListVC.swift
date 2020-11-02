@@ -1,9 +1,11 @@
 import UIKit
 
 class TodoListVC: UIViewController {
+    //MARK:- Outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noTasksLabel: UILabel!
     
+    // MARK:- Properties
     var tasks = [TaskData]()
     
     // MARK:- Lifecycle methods
@@ -61,7 +63,10 @@ class TodoListVC: UIViewController {
         return todoListVC
     }
     
-    // MARK:- Private Methods
+}
+
+extension TodoListVC {
+    // MARK:- API
     private func getAllTasks() {
         showActivityIndicator()
         APIManager.getAllTasks { [weak self] (error, _, taskData) in
@@ -94,6 +99,8 @@ class TodoListVC: UIViewController {
         }
     }
     
+    // MARK:- Private Methods
+    
     private func tableViewConfig() {
         tableView.delegate = self
         tableView.dataSource = self
@@ -113,8 +120,6 @@ class TodoListVC: UIViewController {
         tableView.isEditing = true
     }
 }
-
-
 
 // MARK: - Table view data source
 extension TodoListVC: UITableViewDelegate, UITableViewDataSource {

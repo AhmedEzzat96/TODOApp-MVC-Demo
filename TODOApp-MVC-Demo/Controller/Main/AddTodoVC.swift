@@ -13,17 +13,17 @@ protocol refreshDataDelegate {
 }
 
 class AddTodoVC: UIViewController {
+    //MARK:- Outlets
     @IBOutlet weak var addTodoView: UIView!
     @IBOutlet weak var descriptionTextField: UITextField!
     
+    // MARK:- Properties
     var delegate: refreshDataDelegate?
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        addTodoView.layer.cornerRadius = 20
-        addTodoView.layer.masksToBounds = true
-        
+        setupTodoView()
     }
     
     // MARK:- IBActions
@@ -45,7 +45,11 @@ class AddTodoVC: UIViewController {
         return addTodoVC
     }
     
-    // MARK:- Private Methods
+}
+
+extension AddTodoVC {
+    
+    // MARK:- API
     private func addTask(with description: String) {
         APIManager.addTask(with: description) { [weak self] (success) in
             if success {
@@ -61,5 +65,10 @@ class AddTodoVC: UIViewController {
             }
         }
     }
-
+    
+    // MARK:- Private Methods
+    private func setupTodoView() {
+        addTodoView.layer.cornerRadius = 20
+        addTodoView.layer.masksToBounds = true
+    }
 }

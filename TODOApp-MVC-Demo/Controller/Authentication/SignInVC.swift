@@ -1,6 +1,7 @@
 import UIKit
 
 class SignInVC: UIViewController {
+    //MARK:- Outlets
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -32,13 +33,16 @@ class SignInVC: UIViewController {
         let signInVC: SignInVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signInVC)
         return signInVC
     }
-    
+}
+
+extension SignInVC {
     // MARK:- Private Methods
     private func goToMainVC() {
         let todoListVC = TodoListVC.create()
         navigationController?.pushViewController(todoListVC, animated: true)
     }
     
+    // MARK:- API
     private func signIn(with email: String, password: String) {
         self.showActivityIndicator()
         APIManager.login(with: email, password: password) { [weak self] (error, loginData) in

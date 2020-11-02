@@ -9,6 +9,7 @@
 import UIKit
 
 class ProfileVC: UITableViewController {
+    //MARK:- Outlets
     @IBOutlet weak var idLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
@@ -17,8 +18,6 @@ class ProfileVC: UITableViewController {
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
         navigationItem.title = "Profile"
         getUser()
     }
@@ -28,8 +27,27 @@ class ProfileVC: UITableViewController {
         let profileVC: ProfileVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.profileVC)
         return profileVC
     }
+
+    // MARK: - Table view data source
     
-    // MARK:- Private Methods
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 4 {
+            openAlert(title: "Sign out?", message: "You can always access your content by signing back in ", alertStyle: .alert, actionTitles: ["Cancel", "Sign out"], actionStyles: [.cancel, .destructive], actions: [nil, { [weak self] signOut in
+                self?.showActivityIndicator()
+                self?.signOut()
+                }])
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+
+}
+
+extension ProfileVC {
+    // MARK:- API
     private func getUser() {
         APIManager.getUserData { [weak self] (error, userData) in
             if let error = error {
@@ -49,6 +67,7 @@ class ProfileVC: UITableViewController {
         }
     }
     
+    // MARK:- Private Methods
     private func signOut() {
         APIManager.logOut { [weak self] (success) in
             if success {
@@ -63,21 +82,4 @@ class ProfileVC: UITableViewController {
         let signInVC = SignInVC.create()
         navigationController?.pushViewController(signInVC, animated: true)
     }
-
-    // MARK: - Table view data source
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 4 {
-            openAlert(title: "Sign out?", message: "You can always access your content by signing back in ", alertStyle: .alert, actionTitles: ["Cancel", "Sign out"], actionStyles: [.cancel, .destructive], actions: [nil, { [weak self] signOut in
-                self?.showActivityIndicator()
-                self?.signOut()
-                }])
-        }
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
-    }
-
 }

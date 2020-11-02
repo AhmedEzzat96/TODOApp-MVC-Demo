@@ -1,6 +1,7 @@
 import UIKit
 
 class SignUpVC: UIViewController {
+    //MARK:- Outlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -45,12 +46,16 @@ class SignUpVC: UIViewController {
         return signUpVC
     }
     
+}
+
+extension SignUpVC {
     // MARK:- Private Methods
     private func goToMainVC() {
         let todoListVC = TodoListVC.create()
         navigationController?.pushViewController(todoListVC, animated: true)
     }
     
+    // MARK:- API
     private func register(with user: User) {
         self.showActivityIndicator()
         
