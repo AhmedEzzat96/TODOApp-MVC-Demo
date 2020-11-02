@@ -24,15 +24,11 @@ class SignUpVC: UIViewController {
     // otherwise, call the api service to register
     
     @IBAction func registerBtnPressed(_ sender: UIButton) {
-        guard let name = nameTextField.text,
-            let email = emailTextField.text,
-            let password = passwordTextField.text,
-            let ageString = ageLabel.text,
-            let age = Int(ageString),
-            !name.isEmpty, !email.isEmpty, email.isValidEmail, !password.isEmpty, password.isValidPassword, age > 0 else {
-                openAlert(title: "Fields Required!", message: "Please fill all the text fields & the Age", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
-                return
-        }
+        guard let name = nameTextField.text, isValid(with: .name, name),
+            let email = emailTextField.text, isValid(with: .email, email),
+            let password = passwordTextField.text, isValid(with: .password, password),
+            let ageString = ageLabel.text, isValid(with: .age, ageString),
+            let age = Int(ageString) else { return }
         
         let user = User(name: name,
                         email: email,

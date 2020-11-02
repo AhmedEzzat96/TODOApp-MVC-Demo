@@ -14,9 +14,8 @@ class SignInVC: UIViewController {
     @IBAction func loginBtnPressed(_ sender: UIButton) {
         guard let email = emailTextField.text,
             let password = passwordTextField.text,
-            !email.isEmpty, email.isValidEmail,
-            !password.isEmpty, password.isValidPassword else {
-                openAlert(title: "Fields Required!", message: "Please enter a valid Email Address & Password", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
+            isValid(with: .email, email),
+            isValid(with: .password, password) else {
                 return
         }
 
