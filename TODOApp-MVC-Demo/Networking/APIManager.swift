@@ -123,6 +123,7 @@ class APIManager {
         }
     }
     
+    // delete task by id from api
     class func deleteTask(with id: String, completion: @escaping (_ success: Bool) -> Void) {
         guard let token = UserDefaultsManager.shared().token else { return }
         
@@ -140,6 +141,7 @@ class APIManager {
         }
     }
     
+    // get user data from api by token
     class func getUserData(completion: @escaping (_ error: Error?, _ userData: UserData?) -> Void) {
         guard let token = UserDefaultsManager.shared().token else { return }
         
@@ -169,6 +171,7 @@ class APIManager {
         }
     }
     
+    // logout user from api by token
     class func logOut(completion: @escaping (_ success: Bool) -> Void) {
         guard let token = UserDefaultsManager.shared().token else { return }
         

@@ -72,7 +72,10 @@ extension ProfileVC {
         APIManager.logOut { [weak self] (success) in
             if success {
                 UserDefaultsManager.shared().token = nil
-                self?.hideActivityIndicator()
+                
+                DispatchQueue.main.async {
+                    self?.hideActivityIndicator()
+                }
                 self?.goToSignInVC()
             }
         }
@@ -80,6 +83,7 @@ extension ProfileVC {
     
     private func goToSignInVC() {
         let signInVC = SignInVC.create()
-        navigationController?.pushViewController(signInVC, animated: true)
+        let signInNav = UINavigationController(rootViewController: signInVC)
+        AppDelegate.shared().window?.rootViewController = signInNav
     }
 }

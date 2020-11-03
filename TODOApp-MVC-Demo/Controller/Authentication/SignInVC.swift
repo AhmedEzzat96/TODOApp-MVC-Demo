@@ -8,7 +8,6 @@ class SignInVC: UIViewController {
     // MARK:- Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.setHidesBackButton(true, animated: true)
     }
     
     // MARK:- IBActions
