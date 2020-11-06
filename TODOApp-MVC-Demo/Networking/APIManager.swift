@@ -124,13 +124,13 @@ class APIManager {
     }
     
     // delete task by id from api
-    class func deleteTask(with id: String, completion: @escaping (_ success: Bool) -> Void) {
+    class func deleteTask(with id: String, completion: @escaping (Bool) -> Void) {
         guard let token = UserDefaultsManager.shared().token else { return }
         
         let headers: HTTPHeaders = [HeaderKeys.authorization: "Bearer \(token)",
             HeaderKeys.contentType: "application/json"]
         
-        AF.request(URLs.task + "/\(id)", method: HTTPMethod.delete, parameters: nil, encoding: URLEncoding.default, headers: headers).response {
+        AF.request(URLs.task + "/\(id)", method: HTTPMethod.delete, parameters: nil, encoding: JSONEncoding.default, headers: headers).response {
             response in
             guard response.error == nil else {
                 print("Errorrr" + response.error!.localizedDescription)
@@ -148,7 +148,7 @@ class APIManager {
         let headers: HTTPHeaders = [HeaderKeys.authorization: "Bearer \(token)",
             HeaderKeys.contentType: "application/json"]
         
-        AF.request(URLs.getUserData, method: HTTPMethod.get, parameters: nil, encoding: JSONEncoding.default, headers: headers).response {
+        AF.request(URLs.UserData, method: HTTPMethod.get, parameters: nil, encoding: JSONEncoding.default, headers: headers).response {
             response in
             guard response.error == nil else {
                 print("Errorrr" + response.error!.localizedDescription)
@@ -172,13 +172,13 @@ class APIManager {
     }
     
     // logout user from api by token
-    class func logOut(completion: @escaping (_ success: Bool) -> Void) {
+    class func logOut(completion: @escaping (Bool) -> Void) {
         guard let token = UserDefaultsManager.shared().token else { return }
         
         let headers: HTTPHeaders = [HeaderKeys.authorization: "Bearer \(token)",
             HeaderKeys.contentType: "application/json"]
         
-        AF.request(URLs.logOut, method: HTTPMethod.post, parameters: nil, encoding: URLEncoding.default, headers: headers).response {
+        AF.request(URLs.logOut, method: HTTPMethod.post, parameters: nil, encoding: JSONEncoding.default, headers: headers).response {
             response in
             guard response.error == nil else {
                 print("Errorrr" + response.error!.localizedDescription)
@@ -189,4 +189,99 @@ class APIManager {
         }
     }
     
+    // Upload photo
+    class func uploadPhoto(with image: UIImage, completion: @escaping (Bool) -> Void) {
+        guard let imageJpegData = image.jpegData(compressionQuality: 0.8),
+            let token = UserDefaultsManager.shared().token else {return}
+        
+        let headers: HTTPHeaders = [HeaderKeys.authorization: "Bearer \(token)"]
+        
+        AF.upload(multipartFormData: { (formData) in
+            formData.append(imageJpegData, withName: "avatar", fileName: "/home/ali/Mine/c/nodejs-blog/public/img/blog-header.jpg", mimeType: "blog-header.jpg")
+        }, to: URLs.uploadPhoto, method: HTTPMethod.post, headers: headers).response {
+            response in
+            guard response.error == nil else {
+                print(response.error!.localizedDescription)
+                completion(false)
+                return
+            }
+            print(response)
+            completion(true)
+        }
+    }
+    
+    // getUserPhoto
+    class func getProfilePhoto(with id: String, completion: @escaping (_ error: Error?,_ image: Data?,_ imageResponse: ImageResponse?) -> Void) {
+        
+        AF.request("\(URLs.user)/\(id)/avatar", method: .get).response {
+            response in
+            guard response.error == nil else {
+                print(response.error!)
+                completion(response.error!, nil, nil)
+                return
+            }
+            
+            print(response)
+            
+            guard let data = response.data else {
+                print("can't find any data")
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let imageData = try decoder.decode(ImageResponse.self, from: data)
+                completion(nil, nil, imageData)
+            } catch let error {
+                print(error)
+                completion(nil, data, nil)
+            }
+        }
+    }
+    
+    // update user information in api
+    class func updateUser(with name: String?, email: String?, age: Int?, completion: @escaping (Bool, UpdateUserResponse?) -> Void) {
+        guard let token = UserDefaultsManager.shared().token else { return }
+        
+        let headers: HTTPHeaders = [HeaderKeys.authorization: "Bearer \(token)",
+            HeaderKeys.contentType: "application/json"]
+        var params: [String: Any] = [:]
+        
+        if let name = name, !name.isEmpty {
+            params.updateValue(name, forKey: ParameterKeys.name)
+        }
+        if let email = email, !email.isEmpty {
+            params.updateValue(email, forKey: ParameterKeys.email)
+        }
+        if let age = age, age > 0 {
+            params.updateValue(age, forKey: ParameterKeys.age)
+        }
+        
+        print(params)
+        
+        AF.request(URLs.UserData, method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers).response {
+            response in
+            guard response.error == nil else {
+                print(response.error!)
+                completion(false, nil)
+                return
+            }
+            
+            guard let data = response.data else {
+                print("can't get any data")
+                completion(false, nil)
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                let updateUserResponse = try decoder.decode(UpdateUserResponse.self, from: data)
+                completion(true, updateUserResponse)
+            } catch let error {
+                print(error)
+                completion(false, nil)
+            }
+        }
+    }
+
 }

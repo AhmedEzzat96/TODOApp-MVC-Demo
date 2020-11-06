@@ -38,17 +38,14 @@ extension SignInVC {
     // MARK:- Private Methods
     private func goToMainVC() {
         let todoListVC = TodoListVC.create()
-        navigationController?.pushViewController(todoListVC, animated: true)
+        let todoListNav = UINavigationController(rootViewController: todoListVC)
+        AppDelegate.shared().window?.rootViewController = todoListNav
     }
     
     // MARK:- API
     private func signIn(with email: String, password: String) {
-        self.showActivityIndicator()
+        self.view.showActivityIndicator()
         APIManager.login(with: email, password: password) { [weak self] (error, loginData) in
-            
-            DispatchQueue.main.async {
-                self?.hideActivityIndicator()
-            }
             
             if let error = error {
                 print(error.localizedDescription)
@@ -56,8 +53,12 @@ extension SignInVC {
             } else if let loginData = loginData {
                 print(loginData.token)
                 UserDefaultsManager.shared().token = loginData.token
-                
+                UserDefaultsManager.shared().id = loginData.user.id
                 self?.goToMainVC()
+            }
+            
+            DispatchQueue.main.async {
+                self?.view.hideActivityIndicator()
             }
         }
     }

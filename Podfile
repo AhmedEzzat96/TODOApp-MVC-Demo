@@ -8,5 +8,6 @@ target 'TODOApp-MVC-Demo' do
   # Pods for TODOApp-MVC-Demo
     pod 'Alamofire'
     pod 'IQKeyboardManagerSwift'
+    pod 'SDWebImage'
 
 end

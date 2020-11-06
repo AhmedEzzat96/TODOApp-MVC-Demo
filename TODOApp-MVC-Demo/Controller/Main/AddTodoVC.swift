@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol refreshDataDelegate {
+protocol refreshDataDelegate: AnyObject {
     func refreshData()
 }
 
@@ -18,7 +18,7 @@ class AddTodoVC: UIViewController {
     @IBOutlet weak var descriptionTextField: UITextField!
     
     // MARK:- Properties
-    var delegate: refreshDataDelegate?
+    weak var delegate: refreshDataDelegate?
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {

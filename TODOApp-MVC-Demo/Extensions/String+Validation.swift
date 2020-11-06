@@ -13,7 +13,7 @@ enum ValidationType {
         case .email:
             return ("Email is invalid!", "Email should be : example@mail.com")
         case .password:
-            return ("Password is invalid!", "Password should be at least 8 charcters")
+            return ("Password is wrong!", "Password should be at least 8 charcters")
         case .name:
             return ("Name is invalid!", "Name should contain letters only ")
         case .age:

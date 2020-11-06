@@ -25,8 +25,10 @@ extension UIViewController {
             }
             
         case .age:
-            guard let age = Int(string) else {return false}
-            if age <= 0 || string.isEmpty {
+            guard let age = Int(string) else {
+                openAlert(title: validationType.error.title, message: validationType.error.message, alertStyle: .alert, actionTitles: ["Ok"], actionStyles: [.cancel], actions: [nil])
+                return false }
+            if age <= 0 {
                 openAlert(title: validationType.error.title, message: validationType.error.message, alertStyle: .alert, actionTitles: ["Ok"], actionStyles: [.cancel], actions: [nil])
                 return false
             }

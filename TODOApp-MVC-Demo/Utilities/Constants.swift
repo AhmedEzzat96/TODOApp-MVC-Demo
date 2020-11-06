@@ -31,8 +31,9 @@ struct URLs {
     static let task = base + "/task"
     static let login = user + "/login"
     static let signup = user + "/register"
-    static let getUserData = user + "/me"
+    static let UserData = user + "/me"
     static let logOut = user + "/logout"
+    static let uploadPhoto = user + "/me/avatar"
 }
 
 // Header Keys
@@ -53,6 +54,7 @@ struct ParameterKeys {
 // UserDefaultsKeys
 struct UserDefaultsKeys {
     static let token = "UDKToken"
+    static let id = "id"
 }
 
 // Cells

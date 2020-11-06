@@ -30,4 +30,16 @@ class UserDefaultsManager {
             return UserDefaults.standard.string(forKey: UserDefaultsKeys.token)!
         }
     }
+    
+    var id: String? {
+        set {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultsKeys.id)
+        }
+        get {
+            guard UserDefaults.standard.object(forKey: UserDefaultsKeys.id) != nil else {
+                return nil
+            }
+            return UserDefaults.standard.string(forKey: UserDefaultsKeys.id)!
+        }
+    }
 }

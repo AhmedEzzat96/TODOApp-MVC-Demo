@@ -52,18 +52,15 @@ extension SignUpVC {
     // MARK:- Private Methods
     private func goToMainVC() {
         let todoListVC = TodoListVC.create()
-        navigationController?.pushViewController(todoListVC, animated: true)
+        let todoListNav = UINavigationController(rootViewController: todoListVC)
+        AppDelegate.shared().window?.rootViewController = todoListNav
     }
     
     // MARK:- API
     private func register(with user: User) {
-        self.showActivityIndicator()
+        self.view.showActivityIndicator()
         
         APIManager.signup(with: user) { [weak self] (error, signupData) in
-            
-            DispatchQueue.main.async {
-                self?.hideActivityIndicator()
-            }
             
             if let error = error {
                 print(error.localizedDescription)
@@ -71,7 +68,12 @@ extension SignUpVC {
             } else if let signupData = signupData {
                 print(signupData.token)
                 UserDefaultsManager.shared().token = signupData.token
+                UserDefaultsManager.shared().id = signupData.user.id
                 self?.goToMainVC()
+            }
+            
+            DispatchQueue.main.async {
+                self?.view.hideActivityIndicator()
             }
         }
     }

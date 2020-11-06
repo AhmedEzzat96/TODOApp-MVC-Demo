@@ -11,9 +11,7 @@ class TodoListVC: UIViewController {
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.setHidesBackButton(true, animated: true)
         tableViewConfig()
-        noTasksLabel.isHidden = true
         getAllTasks()
     }
     
@@ -22,33 +20,6 @@ class TodoListVC: UIViewController {
         let addTodoVC = AddTodoVC.create()
         addTodoVC.delegate = self
         present(addTodoVC, animated: true)
-    }
-    
-    @IBAction func deleteBtnPressed(_ sender: UIBarButtonItem) {
-        // Accessing selected rows if any
-        guard let selectedRows = tableView.indexPathsForSelectedRows else {
-            // Otherwise presenting alert to inform user that there is no selected tasks
-            openAlert(title: "No tasks selected!", message: "Please select task or more to delete", alertStyle: .alert, actionTitles: ["Ok"], actionStyles: [.cancel], actions: [{ cancel in
-                self.dismiss(animated: true, completion: nil)
-                }
-            ])
-            return
-        }
-        
-        openAlert(title: "Delete Tasks", message: "Are you sure you want to delete selected tasks?", alertStyle: .alert, actionTitles: ["Yes", "No"], actionStyles: [.destructive, .cancel], actions: [
-            { [weak self] yesAction in
-                for indexPath in selectedRows {
-                    guard let todoID = self?.tasks[indexPath.row].id else {return}
-                    APIManager.deleteTask(with: todoID) { (success) in
-                        if success {
-                            self?.getAllTasks()
-                            print("Task Deleted")
-                        } else {
-                            print("Error")
-                        }
-                    }
-                }
-            }, nil])
     }
     
     @IBAction func profileBtnPressed(_ sender: UIBarButtonItem) {
@@ -68,7 +39,7 @@ class TodoListVC: UIViewController {
 extension TodoListVC {
     // MARK:- API
     private func getAllTasks() {
-        showActivityIndicator()
+        self.view.showActivityIndicator()
         APIManager.getAllTasks { [weak self] (error, _, taskData) in
             guard let strongSelf = self else {return}
             
@@ -81,13 +52,13 @@ extension TodoListVC {
                 
                 if strongSelf.tasks.count <= 0 {
                     DispatchQueue.main.async {
-                        strongSelf.hideActivityIndicator()
+                        strongSelf.view.hideActivityIndicator()
                         strongSelf.noTasksLabel.isHidden = false
                         strongSelf.tableView.isHidden = true
                     }
                 } else {
                     DispatchQueue.main.async {
-                        strongSelf.hideActivityIndicator()
+                        strongSelf.view.hideActivityIndicator()
                         strongSelf.noTasksLabel.isHidden = true
                         strongSelf.tableView.isHidden = false
                         strongSelf.tableView.reloadData()
@@ -99,26 +70,27 @@ extension TodoListVC {
         }
     }
     
+    private func deleteTask(with id: String) {
+        self.view.showActivityIndicator()
+        APIManager.deleteTask(with: id) { [weak self] (success) in
+            if success {
+                self?.getAllTasks()
+                print("Task Deleted")
+            } else {
+                print("Error")
+            }
+            self?.view.hideActivityIndicator()
+        }
+    }
+    
     // MARK:- Private Methods
     
     private func tableViewConfig() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.isHidden = true
         tableView.register(UINib(nibName: Cells.taskCell, bundle: nil), forCellReuseIdentifier: Cells.taskCell)
-        // Creating long press gesture and adding it to tableview to handle multiple cells selection
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress))
-        longPressGesture.minimumPressDuration = 1
-        self.tableView.addGestureRecognizer(longPressGesture)
     }
     
-    // MARK:- Objc Methods
-    @objc func handleLongPress() {
-        // Allowing multiple cell selection to remove them
-        tableView.allowsMultipleSelectionDuringEditing = true
-        // Activate tableview editing style
-        tableView.isEditing = true
-    }
 }
 
 // MARK: - Table view data source
@@ -132,27 +104,14 @@ extension TodoListVC: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         cell.configurecell(task: tasks[indexPath.row])
+        cell.delegate = self
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        // Deselect row if editing mode is not activated
-        if !tableView.isEditing {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        // Checking of no cells selected
-        if tableView.indexPathForSelectedRow == nil {
-            // Closing tableview editing style
-            tableView.isEditing = false
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
-    }
 }
 
 // MARK:- Delegate Method
@@ -160,6 +119,26 @@ extension TodoListVC: UITableViewDelegate, UITableViewDataSource {
 extension TodoListVC: refreshDataDelegate {
     func refreshData() {
         getAllTasks()
+    }
+}
+
+extension TodoListVC: showAlertDelegate {
+    
+    func showAlert(customTableViewCell: UITableViewCell, didTapButton button: UIButton) {
+        guard let indexPath = self.tableView.indexPath(for: customTableViewCell) else {return}
+        let alert = UIAlertController(title: "Sorry", message: "Are You Sure Want to Delete this TODO?", preferredStyle: .alert)
+        
+        let noAction = UIAlertAction(title: "No", style: .cancel) { (action) in
+                    alert.dismiss(animated: true, completion: nil)
+                }
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { [weak self] (action) in
+            guard let id = self?.tasks[indexPath.row].id else { return }
+            self?.deleteTask(with: id)
+        }
+        alert.addAction(noAction)
+        alert.addAction(yesAction)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
