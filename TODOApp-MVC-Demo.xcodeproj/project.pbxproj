@@ -90,6 +90,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0673911B2554E22C0090B68E /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B76E56C02548B0FD00C13D43 /* AuthResponse.swift */,
+				067391182554D57E0090B68E /* UpdateUserResponse.swift */,
+				B76E56C42548BACC00C13D43 /* UserData.swift */,
+				066F9AE12549AC4B00F0301D /* User.swift */,
+				0628309C2553833B0074ECB5 /* ImageResponse.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		0673911C2554E2450090B68E /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				0677DEFF254C2E73000BF97D /* GetTasksResponse.swift */,
+				0677DF01254C2EC3000BF97D /* TaskData.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
 		0677DF03254C3C5B000BF97D /* TaskCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,13 +215,8 @@
 		B76E56A82548A2E400C13D43 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B76E56C02548B0FD00C13D43 /* AuthResponse.swift */,
-				067391182554D57E0090B68E /* UpdateUserResponse.swift */,
-				B76E56C42548BACC00C13D43 /* UserData.swift */,
-				066F9AE12549AC4B00F0301D /* User.swift */,
-				0677DEFF254C2E73000BF97D /* GetTasksResponse.swift */,
-				0677DF01254C2EC3000BF97D /* TaskData.swift */,
-				0628309C2553833B0074ECB5 /* ImageResponse.swift */,
+				0673911B2554E22C0090B68E /* Authentication */,
+				0673911C2554E2450090B68E /* Main */,
 			);
 			path = Model;
 			sourceTree = "<group>";
