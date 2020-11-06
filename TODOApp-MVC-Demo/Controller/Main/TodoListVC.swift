@@ -70,6 +70,7 @@ extension TodoListVC {
         }
     }
     
+    // delete task by id from api
     private func deleteTask(with id: String) {
         self.view.showActivityIndicator()
         APIManager.deleteTask(with: id) { [weak self] (success) in
@@ -122,23 +123,15 @@ extension TodoListVC: refreshDataDelegate {
     }
 }
 
+// delegation to show alert if you want to delete task
 extension TodoListVC: showAlertDelegate {
-    
     func showAlert(customTableViewCell: UITableViewCell, didTapButton button: UIButton) {
         guard let indexPath = self.tableView.indexPath(for: customTableViewCell) else {return}
-        let alert = UIAlertController(title: "Sorry", message: "Are You Sure Want to Delete this TODO?", preferredStyle: .alert)
         
-        let noAction = UIAlertAction(title: "No", style: .cancel) { (action) in
-                    alert.dismiss(animated: true, completion: nil)
-                }
-        
-        let yesAction = UIAlertAction(title: "Yes", style: .destructive) { [weak self] (action) in
+        openAlert(title: "Sorry", message: "Are You Sure Want to Delete this TODO?", alertStyle: .alert, actionTitles: ["No", "Yes"], actionStyles: [.cancel, .destructive], actions: [nil, { [weak self] yesAction in
             guard let id = self?.tasks[indexPath.row].id else { return }
             self?.deleteTask(with: id)
-        }
-        alert.addAction(noAction)
-        alert.addAction(yesAction)
-        self.present(alert, animated: true, completion: nil)
+            }])
     }
 }
 

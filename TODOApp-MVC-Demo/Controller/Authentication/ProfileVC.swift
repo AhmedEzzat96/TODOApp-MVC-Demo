@@ -36,25 +36,18 @@ class ProfileVC: UITableViewController {
                 
             }, nil])
     }
-
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 5 {
-            openAlert(title: "Sign out?", message: "You can always access your content by signing back in ", alertStyle: .alert, actionTitles: ["Cancel", "Sign out"], actionStyles: [.cancel, .destructive], actions: [nil, { [weak self] signOut in
-                self?.view.showActivityIndicator()
-                self?.signOut()
-                }])
+            logoutAlert()
         } else if indexPath.row == 0 {
             editProfileAlert()
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
-    }
-
 }
 
 extension ProfileVC {
@@ -143,10 +136,11 @@ extension ProfileVC {
                 self?.profileImageView.hideActivityIndicator()
             }
         }
-    
+        
     }
     
-    private func updateUserEmail(with name: String?, email: String?, age: Int?) {
+    // update user email or name or age in api
+    private func updateUser(with name: String?, email: String?, age: Int?) {
         self.view.showActivityIndicator()
         APIManager.updateUser(with: name, email: email, age: age) { [weak self] (success, _) in
             if success {
@@ -162,7 +156,7 @@ extension ProfileVC {
     
     // alert with 3 textfields to edit profile info
     private func editProfileAlert() {
-
+        
         let alert = UIAlertController(title: "Edit", message: "Edit your profile information", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -172,7 +166,7 @@ extension ProfileVC {
             let email = alert?.textFields![1].text
             let ageString = alert?.textFields![2].text
             let age = Int(ageString!)
-            self.updateUserEmail(with: name, email: email, age: age)
+            self.updateUser(with: name, email: email, age: age)
         }))
         
         saveAction.isEnabled = false
@@ -211,8 +205,16 @@ extension ProfileVC {
         }
         
         alert.addAction(saveAction)
-
+        
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    // logout alert
+    private func logoutAlert() {
+        openAlert(title: "Sign out?", message: "You can always access your content by signing back in ", alertStyle: .alert, actionTitles: ["Cancel", "Sign out"], actionStyles: [.cancel, .destructive], actions: [nil, { [weak self] signOut in
+            self?.view.showActivityIndicator()
+            self?.signOut()
+            }])
     }
     
     private func goToSignInVC() {
@@ -248,9 +250,9 @@ extension ProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDele
         
         uploadPhoto(image: selectedImage)
     }
-       
-       func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-           picker.dismiss(animated: true, completion: nil)
-       }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     
 }
