@@ -126,7 +126,7 @@ extension ProfileVC {
                     self?.imageViewLabel.isHidden = true
                     self?.profileImageView.image = UIImage(data: data)
                 }
-            } else if let imageResponse = imageResponse {
+            } else if let _ = imageResponse {
                 self?.imageViewLabel.isHidden = false
             }
             
