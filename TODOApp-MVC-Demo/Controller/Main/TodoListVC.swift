@@ -65,7 +65,6 @@ extension TodoListVC {
                         strongSelf.tableView.isEditing = false
                     }
                 }
-                print(strongSelf.tasks as Any)
             }
         }
     }

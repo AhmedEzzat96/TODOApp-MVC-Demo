@@ -60,7 +60,6 @@ extension ProfileVC {
             if let error = error {
                 print(error.localizedDescription)
             } else if let userData = userData {
-                print(userData.id)
                 let nameInitials = userData.name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
                 self?.imageViewLabel.text = nameInitials
                 let ageInt = userData.age
@@ -129,7 +128,6 @@ extension ProfileVC {
                 }
             } else if let imageResponse = imageResponse {
                 self?.imageViewLabel.isHidden = false
-                print(imageResponse.error)
             }
             
             DispatchQueue.main.async {

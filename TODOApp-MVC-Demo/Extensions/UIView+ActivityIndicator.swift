@@ -1,12 +1,3 @@
-//
-//  UIViewController+ActivityIndicator.swift
-//  TODOApp-MVC-Demo
-//
-//  Created by Ahmed Ezzat on 10/30/20.
-//  Copyright © 2020 IDEAEG. All rights reserved.
-//
-
-import Foundation
 import UIKit
 
 extension UIView {

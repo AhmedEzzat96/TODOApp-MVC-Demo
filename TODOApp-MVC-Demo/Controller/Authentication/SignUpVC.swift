@@ -66,7 +66,6 @@ extension SignUpVC {
                 print(error.localizedDescription)
                 self?.openAlert(title: "Error", message: "This email is already register", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
             } else if let signupData = signupData {
-                print(signupData.token)
                 UserDefaultsManager.shared().token = signupData.token
                 UserDefaultsManager.shared().id = signupData.user.id
                 self?.goToMainVC()

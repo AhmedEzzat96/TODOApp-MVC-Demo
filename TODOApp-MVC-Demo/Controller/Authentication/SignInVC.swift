@@ -51,7 +51,6 @@ extension SignInVC {
                 print(error.localizedDescription)
                 self?.openAlert(title: "Attention!", message: "Your email or password is incorrect, please try again", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
             } else if let loginData = loginData {
-                print(loginData.token)
                 UserDefaultsManager.shared().token = loginData.token
                 UserDefaultsManager.shared().id = loginData.user.id
                 self?.goToMainVC()
