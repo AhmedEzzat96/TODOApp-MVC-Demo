@@ -40,10 +40,13 @@ class ProfileVC: UITableViewController {
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.row == 5 {
-            logoutAlert()
-        } else if indexPath.row == 0 {
+        switch (indexPath.section, indexPath.row) {
+        case (0, 0):
             editProfileAlert()
+        case (1, 4):
+            logoutAlert()
+        case (_, _):
+            break
         }
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -60,13 +63,7 @@ extension ProfileVC {
             if let error = error {
                 print(error.localizedDescription)
             } else if let userData = userData {
-                let nameInitials = userData.name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
-                self?.imageViewLabel.text = nameInitials
-                let ageInt = userData.age
-                self?.idLabel.text = userData.id
-                self?.nameLabel.text = userData.name
-                self?.emailLabel.text = userData.email
-                self?.ageLabel.text = String(ageInt)
+                self?.showUserInfo(with: userData)
                 
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
@@ -205,6 +202,22 @@ extension ProfileVC {
         alert.addAction(saveAction)
         
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    // profile image intials if there is no photo
+    private func profileImageConfigure(with name: String) {
+        let nameInitials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        self.imageViewLabel.text = nameInitials
+    }
+    
+    // show user Info
+    private func showUserInfo(with userData: UserData) {
+        profileImageConfigure(with: userData.name)
+        let ageInt = userData.age
+        self.idLabel.text = userData.id
+        self.nameLabel.text = userData.name
+        self.emailLabel.text = userData.email
+        self.ageLabel.text = String(ageInt)
     }
     
     // logout alert
