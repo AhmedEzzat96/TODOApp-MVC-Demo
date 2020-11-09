@@ -51,6 +51,7 @@ extension AddTodoVC {
     
     // MARK:- API
     private func addTask(with description: String) {
+        self.view.showActivityIndicator()
         APIManager.addTask(with: description) { [weak self] (success) in
             if success {
                 print("Task Added")
@@ -63,6 +64,7 @@ extension AddTodoVC {
                     self?.openAlert(title: "Error!", message: "Failed to add task, please try again!", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
                 }
             }
+            self?.view.hideActivityIndicator()
         }
     }
     

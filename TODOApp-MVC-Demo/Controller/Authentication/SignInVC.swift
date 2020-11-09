@@ -45,15 +45,17 @@ extension SignInVC {
     // MARK:- API
     private func signIn(with email: String, password: String) {
         self.view.showActivityIndicator()
-        APIManager.login(with: email, password: password) { [weak self] (error, loginData) in
+        APIManager.login(with: email, password: password) { [weak self] (response) in
             
-            if let error = error {
-                print(error.localizedDescription)
-                self?.openAlert(title: "Attention!", message: "Your email or password is incorrect, please try again", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
-            } else if let loginData = loginData {
+            switch response {
+                
+            case .success(let loginData):
                 UserDefaultsManager.shared().token = loginData.token
                 UserDefaultsManager.shared().id = loginData.user.id
                 self?.goToMainVC()
+            case .failure(let error):
+                print(error.localizedDescription)
+                self?.openAlert(title: "Attention!", message: "Your email or password is incorrect, please try again", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
             }
             
             DispatchQueue.main.async {

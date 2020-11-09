@@ -60,15 +60,17 @@ extension SignUpVC {
     private func register(with user: User) {
         self.view.showActivityIndicator()
         
-        APIManager.signup(with: user) { [weak self] (error, signupData) in
+        APIManager.register(with: user) { [weak self] (response) in
             
-            if let error = error {
-                print(error.localizedDescription)
-                self?.openAlert(title: "Error", message: "This email is already register", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
-            } else if let signupData = signupData {
+            switch response {
+                
+            case .success(let signupData):
                 UserDefaultsManager.shared().token = signupData.token
                 UserDefaultsManager.shared().id = signupData.user.id
                 self?.goToMainVC()
+            case .failure(let error):
+                print(error.localizedDescription)
+                self?.openAlert(title: "Error", message: "This email is already register", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
             }
             
             DispatchQueue.main.async {

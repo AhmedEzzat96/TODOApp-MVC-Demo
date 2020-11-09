@@ -59,16 +59,17 @@ extension ProfileVC {
     // get user data from api
     private func getUser() {
         self.view.showActivityIndicator()
-        APIManager.getUserData { [weak self] (error, userData) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let userData = userData {
+        APIManager.getUserData { [weak self] (response) in
+            switch response {
+            case .success(let userData):
                 self?.showUserInfo(with: userData)
                 
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
                 
+            case .failure(let error):
+                print(error.localizedDescription)
             }
             
             DispatchQueue.main.async {
@@ -114,20 +115,22 @@ extension ProfileVC {
         self.profileImageView.startAnimating()
         self.profileImageView.showActivityIndicator()
         guard let id = UserDefaultsManager.shared().id else { return }
-        APIManager.getProfilePhoto(with: id) { [weak self] (error, data, imageResponse) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if let data = data {
-                
+        APIManager.getProfilePhoto(with: id) { [weak self] (response) in
+            switch response {
+            case .success(let data):
                 DispatchQueue.main.async {
                     self?.imageViewLabel.isHidden = true
                     self?.profileImageView.image = UIImage(data: data)
                 }
-            } else if let _ = imageResponse {
+            case .failure(let error):
                 self?.imageViewLabel.isHidden = false
+                print(error.localizedDescription)
             }
             
             DispatchQueue.main.async {
+                if self?.profileImageView.image == nil {
+                    self?.imageViewLabel.isHidden = false
+                }
                 self?.profileImageView.hideActivityIndicator()
             }
         }
@@ -137,7 +140,7 @@ extension ProfileVC {
     // update user email or name or age in api
     private func updateUser(with name: String?, email: String?, age: Int?) {
         self.view.showActivityIndicator()
-        APIManager.updateUser(with: name, email: email, age: age) { [weak self] (success, _) in
+        APIManager.updateUser(with: name, email: email, age: age) { [weak self] (success) in
             if success {
                 self?.getUser()
             } else {
@@ -206,7 +209,7 @@ extension ProfileVC {
     
     // profile image intials if there is no photo
     private func profileImageConfigure(with name: String) {
-        let nameInitials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!)") + "\($1.first!)" }
+        let nameInitials = name.components(separatedBy: " ").reduce("") { ($0 == "" ? "" : "\($0.first!).") + "\($1.first!)" }
         self.imageViewLabel.text = nameInitials
     }
     
@@ -215,6 +218,7 @@ extension ProfileVC {
         profileImageConfigure(with: userData.name)
         let ageInt = userData.age
         self.idLabel.text = userData.id
+        print(userData.id)
         self.nameLabel.text = userData.name
         self.emailLabel.text = userData.email
         self.ageLabel.text = String(ageInt)

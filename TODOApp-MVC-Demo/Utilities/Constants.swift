@@ -27,8 +27,8 @@ struct ViewControllers {
 // Urls
 struct URLs {
     static let base = "https://api-nodejs-todolist.herokuapp.com"
-    static let user = base + "/user"
-    static let task = base + "/task"
+    static let user = "/user"
+    static let task =  "/task"
     static let login = user + "/login"
     static let signup = user + "/register"
     static let UserData = user + "/me"

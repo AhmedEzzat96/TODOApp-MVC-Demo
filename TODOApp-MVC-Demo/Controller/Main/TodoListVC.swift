@@ -40,15 +40,12 @@ extension TodoListVC {
     // MARK:- API
     private func getAllTasks() {
         self.view.showActivityIndicator()
-        APIManager.getAllTasks { [weak self] (error, _, taskData) in
+        APIManager.getAllTasks { [weak self] (response) in
             guard let strongSelf = self else {return}
-            
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
+            switch response {
                 
-                guard let taskData = taskData else { return }
-                strongSelf.tasks = taskData
+            case .success(let taskData):
+                strongSelf.tasks = taskData.data
                 
                 if strongSelf.tasks.count <= 0 {
                     DispatchQueue.main.async {
@@ -65,6 +62,8 @@ extension TodoListVC {
                         strongSelf.tableView.isEditing = false
                     }
                 }
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }
@@ -126,7 +125,6 @@ extension TodoListVC: refreshDataDelegate {
 extension TodoListVC: showAlertDelegate {
     func showAlert(customTableViewCell: UITableViewCell, didTapButton button: UIButton) {
         guard let indexPath = self.tableView.indexPath(for: customTableViewCell) else {return}
-        
         openAlert(title: "Sorry", message: "Are You Sure Want to Delete this TODO?", alertStyle: .alert, actionTitles: ["No", "Yes"], actionStyles: [.cancel, .destructive], actions: [nil, { [weak self] yesAction in
             guard let id = self?.tasks[indexPath.row].id else { return }
             self?.deleteTask(with: id)

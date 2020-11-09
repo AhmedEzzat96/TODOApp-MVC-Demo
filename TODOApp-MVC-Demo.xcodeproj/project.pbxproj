@@ -22,6 +22,7 @@
 		0677DF06254C3C79000BF97D /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677DF04254C3C79000BF97D /* TaskCell.swift */; };
 		0677DF07254C3C79000BF97D /* TaskCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0677DF05254C3C79000BF97D /* TaskCell.xib */; };
 		0677DF09254C7837000BF97D /* UIView+ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0677DF08254C7837000BF97D /* UIView+ActivityIndicator.swift */; };
+		06D248192558213F00B703B2 /* APIRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D248182558213F00B703B2 /* APIRouter.swift */; };
 		06F2D6A32548FD0E00680804 /* UIButton+RoundedBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F2D6A22548FD0E00680804 /* UIButton+RoundedBorder.swift */; };
 		767FA02330D1EAF4DF5F4A2D /* Pods_TODOApp_MVC_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91F675E6B4DF70681B4B8BD5 /* Pods_TODOApp_MVC_Demo.framework */; };
 		B76E56912548A24A00C13D43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B76E56902548A24A00C13D43 /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 		0677DF04254C3C79000BF97D /* TaskCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
 		0677DF05254C3C79000BF97D /* TaskCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskCell.xib; sourceTree = "<group>"; };
 		0677DF08254C7837000BF97D /* UIView+ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ActivityIndicator.swift"; sourceTree = "<group>"; };
+		06D248182558213F00B703B2 /* APIRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRouter.swift; sourceTree = "<group>"; };
 		06F2D6A22548FD0E00680804 /* UIButton+RoundedBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+RoundedBorder.swift"; sourceTree = "<group>"; };
 		658DB19265AC46253A8B6597 /* Pods-TODOApp-MVC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODOApp-MVC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-TODOApp-MVC-Demo/Pods-TODOApp-MVC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		91F675E6B4DF70681B4B8BD5 /* Pods_TODOApp_MVC_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODOApp_MVC_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				B76E56BE2548AFA000C13D43 /* APIManager.swift */,
+				06D248182558213F00B703B2 /* APIRouter.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				B76E56B52548A63E00C13D43 /* UIViewController+Storyboard.swift in Sources */,
 				B76E56C12548B0FD00C13D43 /* AuthResponse.swift in Sources */,
 				0659B4E9254FC509002971F0 /* UITableViewCell+ShadowAndBorder.swift in Sources */,
+				06D248192558213F00B703B2 /* APIRouter.swift in Sources */,
 				0659B4E7254FA0F8002971F0 /* UIViewController+ValidationAlert.swift in Sources */,
 				0677DF06254C3C79000BF97D /* TaskCell.swift in Sources */,
 				B76E56C32548B2B100C13D43 /* Constants.swift in Sources */,
