@@ -31,16 +31,6 @@ enum APIRouter: URLRequestConvertible{
         switch self {
         case .login(let email, let password):
             return [ParameterKeys.email: email, ParameterKeys.password: password]
-        case .register(let user):
-            guard let email = user.email,
-                let password = user.password,
-                let name = user.name,
-                let age = user.age else {return nil}
-            
-            return [ParameterKeys.email: email,
-                    ParameterKeys.password: password,
-                    ParameterKeys.age: age,
-                    ParameterKeys.name: name]
         case .updateUser(let name, let email, let age):
             var params: [String: Any] = [:]
             
@@ -100,11 +90,13 @@ enum APIRouter: URLRequestConvertible{
         // HTTP Body
         let httpBody: Data? = {
             switch self {
+            case .register(let body):
+                return encodeToJSON(body)
             default:
                 return nil
             }
         }()
-        print(httpBody ?? Data.self)
+        urlRequest.httpBody = httpBody
         
         // Encoding
         let encoding: ParameterEncoding = {
