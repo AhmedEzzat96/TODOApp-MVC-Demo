@@ -5,9 +5,13 @@ class SignInVC: UIViewController {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
+    // MARK:- Properties
+    var presenter: SignInVCPresenter!
+    
     // MARK:- Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter = SignInVCPresenter(view: self)
     }
     
     // MARK:- IBActions
@@ -19,7 +23,7 @@ class SignInVC: UIViewController {
                 return
         }
         let user = User(email: email, password: password)
-        signIn(with: user)
+        presenter.signIn(with: user)
     }
     
     @IBAction func createAccBtnPressed(_ sender: UIButton) {
@@ -34,33 +38,29 @@ class SignInVC: UIViewController {
     }
 }
 
-extension SignInVC {
-    // MARK:- Private Methods
-    private func goToMainVC() {
-        let todoListVC = TodoListVC.create()
+// MARK:- SignInVC Presenter Delegation
+extension SignInVC: SignInView {
+    
+    func showIndicator() {
+        view.showActivityIndicator()
+    }
+    
+    func hideIndicator() {
+        view.hideActivityIndicator()
+    }
+    
+    func showError(error: String) {
+        print(error)
+    }
+    
+    func openAlert() {
+        openAlert(title: "Attention!", message: "Your email or password is incorrect, please try again", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
+       }
+    
+    func goToMainVC() {
+       let todoListVC = TodoListVC.create()
         let todoListNav = UINavigationController(rootViewController: todoListVC)
         AppDelegate.shared().window?.rootViewController = todoListNav
     }
     
-    // MARK:- API
-    private func signIn(with user: User) {
-        self.view.showActivityIndicator()
-        APIManager.login(with: user) { [weak self] (response) in
-            
-            switch response {
-                
-            case .success(let loginData):
-                UserDefaultsManager.shared().token = loginData.token
-                UserDefaultsManager.shared().id = loginData.user.id
-                self?.goToMainVC()
-            case .failure(let error):
-                print(error.localizedDescription)
-                self?.openAlert(title: "Attention!", message: "Your email or password is incorrect, please try again", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
-            }
-            
-            DispatchQueue.main.async {
-                self?.view.hideActivityIndicator()
-            }
-        }
-    }
 }
