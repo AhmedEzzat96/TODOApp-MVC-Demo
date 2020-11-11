@@ -112,7 +112,6 @@ extension ProfileVC {
     
     // get user photo from api
     private func getProfilePhoto() {
-        self.profileImageView.startAnimating()
         self.profileImageView.showActivityIndicator()
         guard let id = UserDefaultsManager.shared().id else { return }
         APIManager.getProfilePhoto(with: id) { [weak self] (response) in
@@ -138,9 +137,9 @@ extension ProfileVC {
     }
     
     // update user email or name or age in api
-    private func updateUser(with name: String?, email: String?, age: Int?) {
+    private func updateUser(with user: User?) {
         self.view.showActivityIndicator()
-        APIManager.updateUser(with: name, email: email, age: age) { [weak self] (success) in
+        APIManager.updateUser(with: user) { [weak self] (success) in
             if success {
                 self?.getUser()
             } else {
@@ -164,21 +163,26 @@ extension ProfileVC {
             let email = alert?.textFields![1].text
             let ageString = alert?.textFields![2].text
             let age = Int(ageString!)
-            self.updateUser(with: name, email: email, age: age)
+            
+            let user = User(name: name, email: email, age: age)
+            self.updateUser(with: user)
         }))
         
         saveAction.isEnabled = false
         
-        alert.addTextField { (nameTextField) in
+        alert.addTextField { [weak self] (nameTextField) in
+            nameTextField.text = self?.nameLabel.text
             nameTextField.placeholder = "Name..."
         }
         
-        alert.addTextField { (emailTextField) in
+        alert.addTextField { [weak self] (emailTextField) in
+            emailTextField.text = self?.emailLabel.text
             emailTextField.placeholder = "Email..."
             emailTextField.keyboardType = .emailAddress
         }
         
-        alert.addTextField { (ageTextField) in
+        alert.addTextField { [weak self] (ageTextField) in
+            ageTextField.text = self?.ageLabel.text
             ageTextField.placeholder = "Age..."
             ageTextField.keyboardType = .numberPad
         }

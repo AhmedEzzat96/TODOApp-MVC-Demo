@@ -18,8 +18,8 @@ class SignInVC: UIViewController {
             isValid(with: .password, password) else {
                 return
         }
-
-        signIn(with: email, password: password)
+        let user = User(email: email, password: password)
+        signIn(with: user)
     }
     
     @IBAction func createAccBtnPressed(_ sender: UIButton) {
@@ -43,9 +43,9 @@ extension SignInVC {
     }
     
     // MARK:- API
-    private func signIn(with email: String, password: String) {
+    private func signIn(with user: User) {
         self.view.showActivityIndicator()
-        APIManager.login(with: email, password: password) { [weak self] (response) in
+        APIManager.login(with: user) { [weak self] (response) in
             
             switch response {
                 

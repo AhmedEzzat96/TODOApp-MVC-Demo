@@ -14,14 +14,16 @@ extension UIView {
     }
     
     func setupActivityIndicator() -> UIActivityIndicatorView {
-        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: self.bounds.width/2, y: self.bounds.height/2, width: 100, height: 100))
+        let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         activityIndicator.backgroundColor = .clear
         activityIndicator.layer.cornerRadius = 0
-        activityIndicator.center = self.center
+//        activityIndicator.center = self.center
         activityIndicator.hidesWhenStopped = true
         activityIndicator.style = .large
         activityIndicator.color = .blue
         activityIndicator.tag = 100
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = true
+        activityIndicator.center = CGPoint(x: self.frame.size.width  / 2, y: self.frame.size.height / 2)
         return activityIndicator
     }
 }

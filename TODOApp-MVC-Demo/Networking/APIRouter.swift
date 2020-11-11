@@ -5,13 +5,13 @@ import Alamofire
 enum APIRouter: URLRequestConvertible{
     
     // The endpoint name
-    case login(_ email: String, _ password: String)
+    case login(_ user: User)
     case register(_ user: User)
     case getTasks, getUserData, logOut, uploadPhoto
-    case addTask(_ description: String)
+    case addTask(_ task: Task)
     case deleteTask(_ id: String)
     case getProfilePhoto(_ id: String)
-    case updateUser(_ name: String?, _ email: String?, _ age: Int?)
+    case updateUser(_ user: User?)
     // MARK: - HttpMethod
     private var method: HTTPMethod {
         switch self{
@@ -29,23 +29,6 @@ enum APIRouter: URLRequestConvertible{
     // MARK: - Parameters
     private var parameters: Parameters? {
         switch self {
-        case .login(let email, let password):
-            return [ParameterKeys.email: email, ParameterKeys.password: password]
-        case .updateUser(let name, let email, let age):
-            var params: [String: Any] = [:]
-            
-            if let name = name, !name.isEmpty {
-                params.updateValue(name, forKey: ParameterKeys.name)
-            }
-            if let email = email, !email.isEmpty {
-                params.updateValue(email, forKey: ParameterKeys.email)
-            }
-            if let age = age, age > 0 {
-                params.updateValue(age, forKey: ParameterKeys.age)
-            }
-            return params
-        case .addTask(let description):
-            return [ParameterKeys.description: description]
         default:
             return nil
         }
@@ -91,6 +74,12 @@ enum APIRouter: URLRequestConvertible{
         let httpBody: Data? = {
             switch self {
             case .register(let body):
+                return encodeToJSON(body)
+            case .login(let body):
+                return encodeToJSON(body)
+            case .updateUser(let body):
+                return encodeToJSON(body)
+            case .addTask(let body):
                 return encodeToJSON(body)
             default:
                 return nil

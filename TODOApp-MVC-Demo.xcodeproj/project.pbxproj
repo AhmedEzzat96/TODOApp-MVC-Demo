@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		061284ED254AE4EB00921763 /* String+Validation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061284EC254AE4EB00921763 /* String+Validation.swift */; };
 		061284EF254B4ECE00921763 /* UIViewController+ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061284EE254B4ECE00921763 /* UIViewController+ShowAlert.swift */; };
+		061A9BA3255C59DF008587BA /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061A9BA2255C59DF008587BA /* Task.swift */; };
 		0628309D2553833B0074ECB5 /* ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0628309C2553833B0074ECB5 /* ImageResponse.swift */; };
 		0643408F254DD69C00EE94F6 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0643408E254DD69C00EE94F6 /* ProfileVC.swift */; };
 		0659B4E7254FA0F8002971F0 /* UIViewController+ValidationAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0659B4E6254FA0F8002971F0 /* UIViewController+ValidationAlert.swift */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		061284EC254AE4EB00921763 /* String+Validation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validation.swift"; sourceTree = "<group>"; };
 		061284EE254B4ECE00921763 /* UIViewController+ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ShowAlert.swift"; sourceTree = "<group>"; };
+		061A9BA2255C59DF008587BA /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		0628309C2553833B0074ECB5 /* ImageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageResponse.swift; sourceTree = "<group>"; };
 		0643408E254DD69C00EE94F6 /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVC.swift; sourceTree = "<group>"; };
 		0659B4E6254FA0F8002971F0 /* UIViewController+ValidationAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ValidationAlert.swift"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 			children = (
 				0677DEFF254C2E73000BF97D /* GetTasksResponse.swift */,
 				0677DF01254C2EC3000BF97D /* TaskData.swift */,
+				061A9BA2255C59DF008587BA /* Task.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				0659B4E7254FA0F8002971F0 /* UIViewController+ValidationAlert.swift in Sources */,
 				0677DF06254C3C79000BF97D /* TaskCell.swift in Sources */,
 				B76E56C32548B2B100C13D43 /* Constants.swift in Sources */,
+				061A9BA3255C59DF008587BA /* Task.swift in Sources */,
 				0677DF09254C7837000BF97D /* UIView+ActivityIndicator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -4,8 +4,8 @@ import Alamofire
 class APIManager {
     
     // login user to api
-    class func  login(with email: String, password: String, completion: @escaping (Result<AuthResponse, Error>) -> Void){
-        request(APIRouter.login(email, password)){ (response) in
+    class func  login(with user: User, completion: @escaping (Result<AuthResponse, Error>) -> Void){
+        request(APIRouter.login(user)){ (response) in
             completion(response)
         }
     }
@@ -18,8 +18,8 @@ class APIManager {
     }
     
     // add task to api
-    class func addTask(with description: String, completion: @escaping (Bool) -> Void) {
-        requestBool(APIRouter.addTask(description)) { (response) in
+    class func addTask(with task: Task, completion: @escaping (Bool) -> Void) {
+        requestBool(APIRouter.addTask(task)) { (response) in
             completion(response)
         }
     }
@@ -68,8 +68,8 @@ class APIManager {
     }
     
     // update user information in api
-    class func updateUser(with name: String?, email: String?, age: Int?, completion: @escaping (Bool) -> Void) {
-        requestBool(APIRouter.updateUser(name, email, age)) { (response) in
+    class func updateUser(with user: User?, completion: @escaping (Bool) -> Void) {
+        requestBool(APIRouter.updateUser(user)) { (response) in
             completion(response)
         }
     }

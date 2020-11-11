@@ -32,7 +32,8 @@ class AddTodoVC: UIViewController {
             openAlert(title: "Warning!", message: "Please Fill the description TextField", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
             return
         }
-        addTask(with: description)
+        let task = Task(description: description)
+        addTask(with: task)
     }
     
     @IBAction func cancelBtnPressed(_ sender: UIButton) {
@@ -50,9 +51,9 @@ class AddTodoVC: UIViewController {
 extension AddTodoVC {
     
     // MARK:- API
-    private func addTask(with description: String) {
+    private func addTask(with task: Task) {
         self.view.showActivityIndicator()
-        APIManager.addTask(with: description) { [weak self] (success) in
+        APIManager.addTask(with: task) { [weak self] (success) in
             if success {
                 print("Task Added")
                 self?.dismiss(animated: true, completion: {
