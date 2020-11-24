@@ -10,9 +10,9 @@ import Foundation
 
 struct User: Codable {
     
-    var name: String? = nil
-    var email: String? = nil
-    var password: String? = nil
-    var age: Int? = nil
+    var name: String?
+    var email: String?
+    var password: String?
+    var age: Int?
     
 }

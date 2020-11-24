@@ -6,13 +6,13 @@ class TodoListVC: UIViewController {
     @IBOutlet weak var noTasksLabel: UILabel!
     
     // MARK:- Properties
-    var tasks = [TaskData]()
+    var presenter: TodoListPresenter!
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         tableViewConfig()
-        getAllTasks()
+        presenter.viewDidLoad()
     }
     
     // MARK:- IBActions
@@ -31,56 +31,37 @@ class TodoListVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> TodoListVC {
         let todoListVC: TodoListVC = UIViewController.create(storyboardName: Storyboards.main, identifier: ViewControllers.todoListVC)
+        todoListVC.presenter = TodoListPresenter(view: todoListVC)
         return todoListVC
+    }
+    
+    func showIndicator() {
+        view.showActivityIndicator()
+    }
+    
+    func hideIndicator() {
+        view.hideActivityIndicator()
+    }
+    
+    func noTasksFound() {
+        self.noTasksLabel.isHidden = false
+        self.tableView.isHidden = true
+    }
+    
+    func fetchingData() {
+        self.noTasksLabel.isHidden = true
+        self.tableView.isHidden = false
+        self.tableView.reloadData()
+        self.tableView.isEditing = false
+    }
+    
+    func openAlertWithAction(title: String, message: String, actionTitles: [String], actionStyles: [UIAlertAction.Style], actions: [((UIAlertAction) -> Void)?]?) {
+        openAlert(title: title, message: message, alertStyle: .alert, actionTitles: actionTitles, actionStyles: actionStyles, actions: actions)
     }
     
 }
 
 extension TodoListVC {
-    // MARK:- API
-    private func getAllTasks() {
-        self.view.showActivityIndicator()
-        APIManager.getAllTasks { [weak self] (response) in
-            guard let strongSelf = self else {return}
-            switch response {
-                
-            case .success(let taskData):
-                strongSelf.tasks = taskData.data
-                
-                if strongSelf.tasks.count <= 0 {
-                    DispatchQueue.main.async {
-                        strongSelf.view.hideActivityIndicator()
-                        strongSelf.noTasksLabel.isHidden = false
-                        strongSelf.tableView.isHidden = true
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        strongSelf.view.hideActivityIndicator()
-                        strongSelf.noTasksLabel.isHidden = true
-                        strongSelf.tableView.isHidden = false
-                        strongSelf.tableView.reloadData()
-                        strongSelf.tableView.isEditing = false
-                    }
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
-    // delete task by id from api
-    private func deleteTask(with id: String) {
-        self.view.showActivityIndicator()
-        APIManager.deleteTask(with: id) { [weak self] (success) in
-            if success {
-                self?.getAllTasks()
-                print("Task Deleted")
-            } else {
-                print("Error")
-            }
-            self?.view.hideActivityIndicator()
-        }
-    }
     
     // MARK:- Private Methods
     
@@ -95,14 +76,14 @@ extension TodoListVC {
 // MARK: - Table view data source
 extension TodoListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return presenter.getTasksCount()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Cells.taskCell, for: indexPath) as? TaskCell else {
             return UITableViewCell()
         }
-        cell.configurecell(task: tasks[indexPath.row])
+        presenter.configure(cell: cell, for: indexPath.row)
         cell.delegate = self
         return cell
     }
@@ -117,7 +98,7 @@ extension TodoListVC: UITableViewDelegate, UITableViewDataSource {
 // delegation to refresh data
 extension TodoListVC: refreshDataDelegate {
     func refreshData() {
-        getAllTasks()
+        presenter.getAllTasks()
     }
 }
 
@@ -125,10 +106,7 @@ extension TodoListVC: refreshDataDelegate {
 extension TodoListVC: showAlertDelegate {
     func showAlert(customTableViewCell: UITableViewCell, didTapButton button: UIButton) {
         guard let indexPath = self.tableView.indexPath(for: customTableViewCell) else {return}
-        openAlert(title: "Sorry", message: "Are You Sure Want to Delete this TODO?", alertStyle: .alert, actionTitles: ["No", "Yes"], actionStyles: [.cancel, .destructive], actions: [nil, { [weak self] yesAction in
-            guard let id = self?.tasks[indexPath.row].id else { return }
-            self?.deleteTask(with: id)
-            }])
+        presenter.deleteTaskAlert(with: indexPath.row)
     }
 }
 

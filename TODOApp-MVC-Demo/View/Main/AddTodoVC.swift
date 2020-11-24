@@ -1,14 +1,7 @@
-//
-//  AddTodoVC.swift
-//  TODOApp-MVC-Demo
-//
-//  Created by Ahmed Ezzat on 10/30/20.
-//  Copyright © 2020 IDEAEG. All rights reserved.
-//
 
 import UIKit
 
-protocol refreshDataDelegate: AnyObject {
+protocol refreshDataDelegate: class {
     func refreshData()
 }
 
@@ -19,6 +12,7 @@ class AddTodoVC: UIViewController {
     
     // MARK:- Properties
     weak var delegate: refreshDataDelegate?
+    var presenter: AddTodoPresenter!
     
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
@@ -28,12 +22,8 @@ class AddTodoVC: UIViewController {
     
     // MARK:- IBActions
     @IBAction func saveBtnPressed(_ sender: UIButton) {
-        guard let description = descriptionTextField.text, !description.isEmpty else {
-            openAlert(title: "Warning!", message: "Please Fill the description TextField", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
-            return
-        }
-        let task = Task(description: description)
-        addTask(with: task)
+        let task = Task(description: descriptionTextField.text)
+        presenter.taskDone(with: task)
     }
     
     @IBAction func cancelBtnPressed(_ sender: UIButton) {
@@ -43,31 +33,31 @@ class AddTodoVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> AddTodoVC {
         let addTodoVC: AddTodoVC = UIViewController.create(storyboardName: Storyboards.main, identifier: ViewControllers.addTodoVC)
+        addTodoVC.presenter = AddTodoPresenter(view: addTodoVC)
         return addTodoVC
+    }
+    
+    func showIndicator() {
+        view.showActivityIndicator()
+    }
+    
+    func hideIndicator() {
+        view.hideActivityIndicator()
+    }
+    
+    func dismissVC() {
+        self.dismiss(animated: true) { [weak self] in
+            self?.delegate?.refreshData()
+        }
+    }
+    
+    func openAlert(title: String, message: String) {
+        self.openAlert(title: title, message: message, alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: nil)
     }
     
 }
 
 extension AddTodoVC {
-    
-    // MARK:- API
-    private func addTask(with task: Task) {
-        self.view.showActivityIndicator()
-        APIManager.addTask(with: task) { [weak self] (success) in
-            if success {
-                print("Task Added")
-                self?.dismiss(animated: true, completion: {
-                    self?.delegate?.refreshData()
-                })
-            } else {
-                print("Failed to add task")
-                DispatchQueue.main.async {
-                    self?.openAlert(title: "Error!", message: "Failed to add task, please try again!", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
-                }
-            }
-            self?.view.hideActivityIndicator()
-        }
-    }
     
     // MARK:- Private Methods
     private func setupTodoView() {

@@ -10,7 +10,7 @@ import Foundation
 
 struct TaskData: Codable {
     let completed: Bool
-    let id: String
+    let id: String?
     let description: String
     
     enum CodingKeys: String, CodingKey {

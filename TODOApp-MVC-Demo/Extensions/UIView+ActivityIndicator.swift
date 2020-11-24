@@ -19,7 +19,12 @@ extension UIView {
         activityIndicator.layer.cornerRadius = 0
 //        activityIndicator.center = self.center
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.style = .large
+        if #available(iOS 13.0, *) {
+            activityIndicator.style = .large
+        } else {
+            activityIndicator.style = .whiteLarge
+            // Fallback on earlier versions
+        }
         activityIndicator.color = .blue
         activityIndicator.tag = 100
         activityIndicator.translatesAutoresizingMaskIntoConstraints = true

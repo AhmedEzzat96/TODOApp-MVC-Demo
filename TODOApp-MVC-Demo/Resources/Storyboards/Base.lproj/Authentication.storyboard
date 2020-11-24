@@ -253,7 +253,7 @@
                                                 <constraint firstItem="JyE-71-oy5" firstAttribute="width" secondItem="mwJ-S5-OtE" secondAttribute="width" id="kms-AE-xwM"/>
                                                 <constraint firstAttribute="bottom" secondItem="TED-9s-If5" secondAttribute="bottom" constant="59" id="qYv-C0-pm5"/>
                                                 <constraint firstAttribute="bottom" secondItem="mwJ-S5-OtE" secondAttribute="bottom" constant="10" id="rks-pf-tON"/>
-                                                <constraint firstItem="TED-9s-If5" firstAttribute="leading" secondItem="mwJ-S5-OtE" secondAttribute="trailing" constant="90" id="tXh-Yv-v1D"/>
+                                                <constraint firstItem="TED-9s-If5" firstAttribute="leading" relation="lessThanOrEqual" secondItem="mwJ-S5-OtE" secondAttribute="trailing" constant="90" id="tXh-Yv-v1D"/>
                                                 <constraint firstItem="mwJ-S5-OtE" firstAttribute="height" secondItem="j8n-9Y-M6a" secondAttribute="height" multiplier="0.9" id="vCY-UJ-QG0"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -270,13 +270,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RaS-5l-dkS">
-                                                    <rect key="frame" x="20" y="11" width="62" height="48"/>
+                                                    <rect key="frame" x="20" y="11" width="56" height="48"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j6y-BJ-6a8">
-                                                    <rect key="frame" x="87" y="35" width="322" height="0.0"/>
+                                                    <rect key="frame" x="81" y="35" width="288" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -301,13 +301,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qiZ-u8-jc1">
-                                                    <rect key="frame" x="20" y="11" width="62" height="48"/>
+                                                    <rect key="frame" x="20" y="11" width="56" height="48"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WFa-Ai-ToG">
-                                                    <rect key="frame" x="87" y="35" width="322" height="0.0"/>
+                                                    <rect key="frame" x="81" y="35" width="288" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -332,13 +332,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L48-Yi-i3O">
-                                                    <rect key="frame" x="20" y="11" width="62" height="48"/>
+                                                    <rect key="frame" x="20" y="11" width="56" height="48"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nx-ES-i9C">
-                                                    <rect key="frame" x="87" y="35" width="322" height="0.0"/>
+                                                    <rect key="frame" x="81" y="35" width="288" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -363,13 +363,13 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Age :" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycd-We-PDa">
-                                                    <rect key="frame" x="20" y="11" width="62" height="48"/>
+                                                    <rect key="frame" x="20" y="11" width="56" height="48"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Wy-jE-Oak">
-                                                    <rect key="frame" x="87" y="35" width="322" height="0.0"/>
+                                                    <rect key="frame" x="81" y="35" width="288" height="0.0"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -394,7 +394,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log out" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u8g-rR-2gB">
-                                                    <rect key="frame" x="20" y="24.5" width="76.5" height="21"/>
+                                                    <rect key="frame" x="20" y="24.5" width="68.5" height="21"/>
                                                     <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="16"/>
                                                     <color key="textColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>

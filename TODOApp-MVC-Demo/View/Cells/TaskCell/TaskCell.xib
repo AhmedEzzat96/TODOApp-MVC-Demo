@@ -25,7 +25,7 @@
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qaf-a9-Z35">
                         <rect key="frame" x="305" y="25" width="31" height="33"/>
                         <color key="tintColor" systemColor="systemRedColor" red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <state key="normal" image="deleteIconCopy"/>
+                        <state key="normal" image="trash" catalog="system"/>
                         <connections>
                             <action selector="deleteBtnPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="bFB-NJ-4dw"/>
                         </connections>
@@ -60,6 +60,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="deleteIconCopy" width="14" height="20"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
     </resources>
 </document>

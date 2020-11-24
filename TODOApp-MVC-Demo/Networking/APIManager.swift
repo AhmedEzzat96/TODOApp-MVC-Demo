@@ -53,9 +53,8 @@ class APIManager {
     }
     
     // Upload photo
-    class func uploadPhoto(with image: UIImage, completion: @escaping (Bool) -> Void) {
-        guard let imageJpegData = image.jpegData(compressionQuality: 0.8) else { return }
-        upload(APIRouter.uploadPhoto, data: imageJpegData) { (response) in
+    class func uploadPhoto(with imageData: Data, completion: @escaping (Bool) -> Void) {
+        upload(APIRouter.uploadPhoto, data: imageData) { (response) in
             completion(response)
         }
     }
@@ -88,6 +87,13 @@ extension APIManager{
             }
         }
         .responseJSON { response in
+            switch response.result {
+                
+            case .failure(let error):
+                completion(.failure(error))
+            default:
+                return
+            }
             print(response)
         }
     }

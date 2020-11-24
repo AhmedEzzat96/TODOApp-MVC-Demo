@@ -11,19 +11,12 @@ class SignInVC: UIViewController {
     // MARK:- Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter = SignInVCPresenter(view: self)
     }
     
     // MARK:- IBActions
     @IBAction func loginBtnPressed(_ sender: UIButton) {
-        guard let email = emailTextField.text,
-            let password = passwordTextField.text,
-            isValid(with: .email, email),
-            isValid(with: .password, password) else {
-                return
-        }
-        let user = User(email: email, password: password)
-        presenter.signIn(with: user)
+        let user = User(email: emailTextField.text, password: passwordTextField.text)
+        presenter.goToMainScreen(with: user)
     }
     
     @IBAction func createAccBtnPressed(_ sender: UIButton) {
@@ -34,12 +27,9 @@ class SignInVC: UIViewController {
     // MARK:- Public Methods
     class func create() -> SignInVC {
         let signInVC: SignInVC = UIViewController.create(storyboardName: Storyboards.authentication, identifier: ViewControllers.signInVC)
+        signInVC.presenter = SignInVCPresenter(view: signInVC)
         return signInVC
     }
-}
-
-// MARK:- SignInVC Presenter Delegation
-extension SignInVC: SignInView {
     
     func showIndicator() {
         view.showActivityIndicator()
@@ -49,16 +39,12 @@ extension SignInVC: SignInView {
         view.hideActivityIndicator()
     }
     
-    func showError(error: String) {
-        print(error)
+    func openAlert(title: String, message: String) {
+     openAlert(title: title, message: message, alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
     }
     
-    func openAlert() {
-        openAlert(title: "Attention!", message: "Your email or password is incorrect, please try again", alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.cancel], actions: nil)
-       }
-    
     func goToMainVC() {
-       let todoListVC = TodoListVC.create()
+        let todoListVC = TodoListVC.create()
         let todoListNav = UINavigationController(rootViewController: todoListVC)
         AppDelegate.shared().window?.rootViewController = todoListNav
     }

@@ -66,7 +66,7 @@
         <!--Add TodoVC-->
         <scene sceneID="ebe-tP-JBM">
             <objects>
-                <viewController storyboardIdentifier="AddTodoVC" id="Lio-cU-NZP" customClass="AddTodoVC" customModule="TODOApp_MVC_Demo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddTodoVC" wantsFullScreenLayout="YES" modalPresentationStyle="overCurrentContext" id="Lio-cU-NZP" customClass="AddTodoVC" customModule="TODOApp_MVC_Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FFU-Yo-NU6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -86,7 +86,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemGray5Color" red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="wuQ-fr-fgk" firstAttribute="top" secondItem="NwQ-Ix-nlS" secondAttribute="top" constant="5" id="5pK-MI-lFx"/>
                                     <constraint firstItem="wuQ-fr-fgk" firstAttribute="height" secondItem="NwQ-Ix-nlS" secondAttribute="height" multiplier="0.07" id="Tpo-Fo-YiE"/>
