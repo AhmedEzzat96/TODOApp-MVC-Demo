@@ -2,8 +2,7 @@ import UIKit
 
 class SignInVC: UIViewController {
     //MARK:- Outlets
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet var signinView: SigninView!
     
     // MARK:- Properties
     var presenter: SignInVCPresenter!
@@ -11,11 +10,12 @@ class SignInVC: UIViewController {
     // MARK:- Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        signinView.setupView()
     }
     
     // MARK:- IBActions
     @IBAction func loginBtnPressed(_ sender: UIButton) {
-        let user = User(email: emailTextField.text, password: passwordTextField.text)
+        let user = User(email: signinView.emailTextField.text, password: signinView.passwordTextField.text)
         presenter.goToMainScreen(with: user)
     }
     

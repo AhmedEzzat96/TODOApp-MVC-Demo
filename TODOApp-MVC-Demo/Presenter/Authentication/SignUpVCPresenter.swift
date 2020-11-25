@@ -11,6 +11,15 @@ class SignUpVCPresenter {
         self.view = view
     }
     
+    //MARK:- Public Methods
+      func goToMainScreen(with user: User?) {
+          if validateUser(with: user) {
+              register(with: user!)
+          }
+      }
+}
+
+extension SignUpVCPresenter {
     //MARK:- Private Methods
     private func register(with user: User) {
         self.view?.showIndicator()
@@ -57,12 +66,4 @@ class SignUpVCPresenter {
         }
         return true
     }
-    
-    //MARK:- Public Methods
-      func goToMainScreen(with user: User?) {
-          if validateUser(with: user) {
-              register(with: user!)
-          }
-      }
-    
 }

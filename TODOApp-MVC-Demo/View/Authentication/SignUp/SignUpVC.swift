@@ -2,10 +2,7 @@ import UIKit
 
 class SignUpVC: UIViewController {
     //MARK:- Outlets
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var ageLabel: UILabel!
+    @IBOutlet var signUpView: SignUpView!
     
     // MARK:- Properties
     var presenter: SignUpVCPresenter!
@@ -13,20 +10,19 @@ class SignUpVC: UIViewController {
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        signUpView.setupView()
     }
     
     // MARK:- IBActions
-    
     @IBAction func ageStepper(_ sender: UIStepper) {
-        ageLabel.text = "\(Int(sender.value))"
+        signUpView.ageLabel.text = "\(Int(sender.value))"
     }
     
     @IBAction func registerBtnPressed(_ sender: UIButton) {
-        guard let ageString = ageLabel.text else { return }
-        let user = User(name: nameTextField.text,
-                        email: emailTextField.text,
-                        password: passwordTextField.text,
+        guard let ageString = signUpView.ageLabel.text else { return }
+        let user = User(name: signUpView.nameTextField.text,
+                        email: signUpView.emailTextField.text,
+                        password: signUpView.passwordTextField.text,
                         age: Int(ageString))
         
         presenter.goToMainScreen(with: user)

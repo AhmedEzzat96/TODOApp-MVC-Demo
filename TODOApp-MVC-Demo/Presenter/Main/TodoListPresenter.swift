@@ -57,6 +57,9 @@ class TodoListPresenter {
             }])
     }
     
+}
+
+extension TodoListPresenter {
     // MARK:- Private Methods
     // delete task by id from api
     private func deleteTask(with index: Int) {
@@ -72,5 +75,4 @@ class TodoListPresenter {
             self?.view?.hideIndicator()
         }
     }
-    
 }

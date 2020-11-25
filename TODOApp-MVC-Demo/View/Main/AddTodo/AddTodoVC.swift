@@ -7,8 +7,8 @@ protocol refreshDataDelegate: class {
 
 class AddTodoVC: UIViewController {
     //MARK:- Outlets
-    @IBOutlet weak var addTodoView: UIView!
-    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet var addTodoView: AddTodoView!
+    
     
     // MARK:- Properties
     weak var delegate: refreshDataDelegate?
@@ -17,12 +17,12 @@ class AddTodoVC: UIViewController {
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTodoView()
+        addTodoView.setupView()
     }
     
     // MARK:- IBActions
     @IBAction func saveBtnPressed(_ sender: UIButton) {
-        let task = Task(description: descriptionTextField.text)
+        let task = Task(description: addTodoView.descriptionTextField.text)
         presenter.taskDone(with: task)
     }
     
@@ -55,13 +55,4 @@ class AddTodoVC: UIViewController {
         self.openAlert(title: title, message: message, alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: nil)
     }
     
-}
-
-extension AddTodoVC {
-    
-    // MARK:- Private Methods
-    private func setupTodoView() {
-        addTodoView.layer.cornerRadius = 20
-        addTodoView.layer.masksToBounds = true
-    }
 }

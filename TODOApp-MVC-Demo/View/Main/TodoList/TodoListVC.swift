@@ -2,8 +2,8 @@ import UIKit
 
 class TodoListVC: UIViewController {
     //MARK:- Outlets
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var noTasksLabel: UILabel!
+    @IBOutlet var todoListView: TodoListView!
+    
     
     // MARK:- Properties
     var presenter: TodoListPresenter!
@@ -11,6 +11,7 @@ class TodoListVC: UIViewController {
     // MARK:- Lifecycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        todoListView.setupView()
         tableViewConfig()
         presenter.viewDidLoad()
     }
@@ -44,15 +45,15 @@ class TodoListVC: UIViewController {
     }
     
     func noTasksFound() {
-        self.noTasksLabel.isHidden = false
-        self.tableView.isHidden = true
+        self.todoListView.noTasksLabel.isHidden = false
+        self.todoListView.tableView.isHidden = true
     }
     
     func fetchingData() {
-        self.noTasksLabel.isHidden = true
-        self.tableView.isHidden = false
-        self.tableView.reloadData()
-        self.tableView.isEditing = false
+        self.todoListView.noTasksLabel.isHidden = true
+        self.todoListView.tableView.isHidden = false
+        self.todoListView.tableView.reloadData()
+        self.todoListView.tableView.isEditing = false
     }
     
     func openAlertWithAction(title: String, message: String, actionTitles: [String], actionStyles: [UIAlertAction.Style], actions: [((UIAlertAction) -> Void)?]?) {
@@ -66,9 +67,9 @@ extension TodoListVC {
     // MARK:- Private Methods
     
     private func tableViewConfig() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: Cells.taskCell, bundle: nil), forCellReuseIdentifier: Cells.taskCell)
+        todoListView.tableView.delegate = self
+        todoListView.tableView.dataSource = self
+        todoListView.tableView.register(UINib(nibName: Cells.taskCell, bundle: nil), forCellReuseIdentifier: Cells.taskCell)
     }
     
 }
@@ -105,7 +106,7 @@ extension TodoListVC: refreshDataDelegate {
 // delegation to show alert if you want to delete task
 extension TodoListVC: showAlertDelegate {
     func showAlert(customTableViewCell: UITableViewCell, didTapButton button: UIButton) {
-        guard let indexPath = self.tableView.indexPath(for: customTableViewCell) else {return}
+        guard let indexPath = self.todoListView.tableView.indexPath(for: customTableViewCell) else {return}
         presenter.deleteTaskAlert(with: indexPath.row)
     }
 }

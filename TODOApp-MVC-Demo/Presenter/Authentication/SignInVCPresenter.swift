@@ -11,6 +11,15 @@ class SignInVCPresenter {
         self.view = view
     }
     
+    //MARK:- Public Methods
+    func goToMainScreen(with user: User?) {
+        if validateUser(with: user) {
+            signIn(with: user!)
+        }
+    }
+}
+
+extension SignInVCPresenter {
     // MARK:- Private Methods
     private func signIn(with user: User) {
         view?.showIndicator()
@@ -32,7 +41,7 @@ class SignInVCPresenter {
         }
         
     }
-
+    
     private func validateUser(with user: User?) -> Bool {
         if !ValidatorManager.shared().isValid(with: user?.email, validationType: .email) {
             view?.openAlert(title: ValidationType.email.error.title, message: ValidationType.email.error.message)
@@ -43,12 +52,5 @@ class SignInVCPresenter {
             return false
         }
         return true
-    }
-    
-    //MARK:- Public Methods
-    func goToMainScreen(with user: User?) {
-        if validateUser(with: user) {
-            signIn(with: user!)
-        }
     }
 }

@@ -11,6 +11,15 @@ class AddTodoPresenter {
         self.view = view
     }
     
+    // MARK:- Public Methods
+    func taskDone(with task: Task) {
+        if validateTask(with: task) {
+            addTask(with: task)
+        }
+    }
+}
+
+extension AddTodoPresenter {
     // MARK:- Private Methods
     private func addTask(with task: Task) {
         self.view?.showIndicator()
@@ -35,12 +44,5 @@ class AddTodoPresenter {
             return false
         }
         return true
-    }
-    
-    // MARK:- Public Methods
-    func taskDone(with task: Task) {
-        if validateTask(with: task) {
-            addTask(with: task)
-        }
     }
 }

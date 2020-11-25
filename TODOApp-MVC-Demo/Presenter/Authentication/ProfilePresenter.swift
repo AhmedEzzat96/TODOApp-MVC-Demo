@@ -1,10 +1,3 @@
-//
-//  ProfilePresenter.swift
-//  TODOApp-MVC-Demo
-//
-//  Created by Ahmed Ezzat on 24/11/2020.
-//  Copyright © 2020 IDEAEG. All rights reserved.
-//
 
 import Foundation
 
