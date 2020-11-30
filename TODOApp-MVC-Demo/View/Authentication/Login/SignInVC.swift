@@ -1,5 +1,12 @@
 import UIKit
 
+protocol SignInVCProtocol: class {
+    func showIndicator()
+    func hideIndicator()
+    func openAlert(title: String, message: String)
+    func goToMainVC()
+}
+
 class SignInVC: UIViewController {
     //MARK:- Outlets
     @IBOutlet var signinView: SigninView!
@@ -30,8 +37,11 @@ class SignInVC: UIViewController {
         signInVC.presenter = SignInVCPresenter(view: signInVC)
         return signInVC
     }
-    
-    func showIndicator() {
+}
+
+//MARK:- Protocol Methods
+extension SignInVC: SignInVCProtocol {
+   func showIndicator() {
         view.showActivityIndicator()
     }
     
@@ -48,5 +58,4 @@ class SignInVC: UIViewController {
         let todoListNav = UINavigationController(rootViewController: todoListVC)
         AppDelegate.shared().window?.rootViewController = todoListNav
     }
-    
 }

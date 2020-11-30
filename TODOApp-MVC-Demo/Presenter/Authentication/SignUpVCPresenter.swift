@@ -4,10 +4,10 @@ import Foundation
 class SignUpVCPresenter {
     
     //MARK:- Properties
-    private weak var view: SignUpVC?
+    private weak var view: SignUpVCProtocol?
     
     // MARK:- Life Cycle Methods
-    init(view: SignUpVC) {
+    init(view: SignUpVCProtocol) {
         self.view = view
     }
     

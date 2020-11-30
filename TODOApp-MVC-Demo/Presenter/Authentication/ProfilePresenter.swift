@@ -4,10 +4,10 @@ import Foundation
 class ProfilePresenter {
     
     //MARK:- Properties
-    private weak var view: ProfileVC?
+    private weak var view: ProfileVCProtocol?
     
     // MARK:- Life Cycle Methods
-    init(view: ProfileVC) {
+    init(view: ProfileVCProtocol) {
         self.view = view
     }
     

@@ -4,10 +4,10 @@ import Foundation
 class AddTodoPresenter {
     
     //MARK:- Properties
-    private weak var view: AddTodoVC?
+    private weak var view: AddTodoVCProtocol?
     
     // MARK:- Life Cycle Methods
-    init(view: AddTodoVC) {
+    init(view: AddTodoVCProtocol) {
         self.view = view
     }
     

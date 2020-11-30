@@ -5,6 +5,13 @@ protocol refreshDataDelegate: class {
     func refreshData()
 }
 
+protocol AddTodoVCProtocol: class {
+    func showIndicator()
+    func hideIndicator()
+    func dismissVC()
+    func openAlert(title: String, message: String)
+}
+
 class AddTodoVC: UIViewController {
     //MARK:- Outlets
     @IBOutlet var addTodoView: AddTodoView!
@@ -36,7 +43,10 @@ class AddTodoVC: UIViewController {
         addTodoVC.presenter = AddTodoPresenter(view: addTodoVC)
         return addTodoVC
     }
-    
+}
+
+//MARK:- Protocol Methods
+extension AddTodoVC: AddTodoVCProtocol {
     func showIndicator() {
         view.showActivityIndicator()
     }
@@ -54,5 +64,4 @@ class AddTodoVC: UIViewController {
     func openAlert(title: String, message: String) {
         self.openAlert(title: title, message: message, alertStyle: .alert, actionTitles: ["OK"], actionStyles: [.default], actions: nil)
     }
-    
 }

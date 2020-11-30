@@ -1,5 +1,13 @@
 import UIKit
 
+protocol TodoListVCProtocol: class {
+    func showIndicator()
+    func hideIndicator()
+    func noTasksFound()
+    func fetchingData()
+    func openAlertWithAction(title: String, message: String, actionTitles: [String], actionStyles: [UIAlertAction.Style], actions: [((UIAlertAction) -> Void)?]?)
+}
+
 class TodoListVC: UIViewController {
     //MARK:- Outlets
     @IBOutlet var todoListView: TodoListView!
@@ -36,42 +44,15 @@ class TodoListVC: UIViewController {
         return todoListVC
     }
     
-    func showIndicator() {
-        view.showActivityIndicator()
-    }
-    
-    func hideIndicator() {
-        view.hideActivityIndicator()
-    }
-    
-    func noTasksFound() {
-        self.todoListView.noTasksLabel.isHidden = false
-        self.todoListView.tableView.isHidden = true
-    }
-    
-    func fetchingData() {
-        self.todoListView.noTasksLabel.isHidden = true
-        self.todoListView.tableView.isHidden = false
-        self.todoListView.tableView.reloadData()
-        self.todoListView.tableView.isEditing = false
-    }
-    
-    func openAlertWithAction(title: String, message: String, actionTitles: [String], actionStyles: [UIAlertAction.Style], actions: [((UIAlertAction) -> Void)?]?) {
-        openAlert(title: title, message: message, alertStyle: .alert, actionTitles: actionTitles, actionStyles: actionStyles, actions: actions)
-    }
-    
 }
 
+// MARK:- Private Methods
 extension TodoListVC {
-    
-    // MARK:- Private Methods
-    
     private func tableViewConfig() {
         todoListView.tableView.delegate = self
         todoListView.tableView.dataSource = self
         todoListView.tableView.register(UINib(nibName: Cells.taskCell, bundle: nil), forCellReuseIdentifier: Cells.taskCell)
     }
-    
 }
 
 // MARK: - Table view data source
@@ -95,7 +76,34 @@ extension TodoListVC: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-// MARK:- Delegate Method
+//MARK:- Protocol Methods
+extension TodoListVC: TodoListVCProtocol {
+    func showIndicator() {
+        view.showActivityIndicator()
+    }
+    
+    func hideIndicator() {
+        view.hideActivityIndicator()
+    }
+    
+    func noTasksFound() {
+        self.todoListView.noTasksLabel.isHidden = false
+        self.todoListView.tableView.isHidden = true
+    }
+    
+    func fetchingData() {
+        self.todoListView.noTasksLabel.isHidden = true
+        self.todoListView.tableView.isHidden = false
+        self.todoListView.tableView.reloadData()
+        self.todoListView.tableView.isEditing = false
+    }
+    
+    func openAlertWithAction(title: String, message: String, actionTitles: [String], actionStyles: [UIAlertAction.Style], actions: [((UIAlertAction) -> Void)?]?) {
+        openAlert(title: title, message: message, alertStyle: .alert, actionTitles: actionTitles, actionStyles: actionStyles, actions: actions)
+    }
+}
+
+// MARK:- Delegate Methods
 // delegation to refresh data
 extension TodoListVC: refreshDataDelegate {
     func refreshData() {

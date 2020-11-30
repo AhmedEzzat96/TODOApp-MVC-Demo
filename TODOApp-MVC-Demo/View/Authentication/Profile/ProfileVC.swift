@@ -1,6 +1,19 @@
 
 import UIKit
 
+protocol ProfileVCProtocol: class {
+    func showIndicator()
+    func hideIndicator()
+    func showUserInfo(with userData: UserData)
+    func reloadTableView()
+    func profileImgView() -> UIImageView
+    func imageViewLabel(_ isHidden: Bool)
+    func setProfileImage(imageData: Data)
+    func goToSignInVC()
+    func showAlert(title: String, message: String, actionTitles: [String], actionStyles: [UIAlertAction.Style], actions: [((UIAlertAction) -> Void)?]?)
+    func editProfileAlert()
+}
+
 class ProfileVC: UITableViewController {
     //MARK:- Outlets
     @IBOutlet weak var idLabel: UILabel!
@@ -28,6 +41,46 @@ class ProfileVC: UITableViewController {
         return profileVC
     }
     
+    // MARK:- IBActions
+    @IBAction func addImageBtnPressed(_ sender: UIBarButtonItem) {
+        self.openAlert(title: "Profile Picture", message: "How would you like to select a picture?", alertStyle: .actionSheet, actionTitles: ["Gallery", "Camera", "Cancel"], actionStyles: [.default, .default, .destructive], actions: [{ [weak self] gallery in
+            self?.presentPhotoPicker()
+            
+            }, { [weak self] camera in
+                self?.presentCamera()
+                
+            }, nil])
+    }
+    
+    // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presenter.didSelectRow(section: indexPath.section, row: indexPath.row)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+}
+
+// MARK:- Private Methods
+extension ProfileVC {
+    private func presentCamera() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .camera
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+    
+    private func presentPhotoPicker() {
+        let vc = UIImagePickerController()
+        vc.sourceType = .photoLibrary
+        vc.delegate = self
+        vc.allowsEditing = true
+        present(vc, animated: true)
+    }
+}
+
+//MARK:- Protocol Methods
+extension ProfileVC: ProfileVCProtocol {
     // show user Info
     func showUserInfo(with userData: UserData) {
         self.imageViewLabel.text = presenter.nameInitials(with: userData.name)
@@ -129,44 +182,6 @@ class ProfileVC: UITableViewController {
         }
 
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    // MARK:- IBActions
-    @IBAction func addImageBtnPressed(_ sender: UIBarButtonItem) {
-        self.openAlert(title: "Profile Picture", message: "How would you like to select a picture?", alertStyle: .actionSheet, actionTitles: ["Gallery", "Camera", "Cancel"], actionStyles: [.default, .default, .destructive], actions: [{ [weak self] gallery in
-            self?.presentPhotoPicker()
-            
-            }, { [weak self] camera in
-                self?.presentCamera()
-                
-            }, nil])
-    }
-    
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter.didSelectRow(section: indexPath.section, row: indexPath.row)
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-}
-
-extension ProfileVC {
-    
-    // MARK:- Private Methods
-    private func presentCamera() {
-        let vc = UIImagePickerController()
-        vc.sourceType = .camera
-        vc.delegate = self
-        vc.allowsEditing = true
-        present(vc, animated: true)
-    }
-    
-    private func presentPhotoPicker() {
-        let vc = UIImagePickerController()
-        vc.sourceType = .photoLibrary
-        vc.delegate = self
-        vc.allowsEditing = true
-        present(vc, animated: true)
     }
 }
 

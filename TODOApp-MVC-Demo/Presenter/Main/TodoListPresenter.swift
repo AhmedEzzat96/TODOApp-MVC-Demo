@@ -4,11 +4,11 @@ import Foundation
 class TodoListPresenter {
     
     //MARK:- Properties
-    private weak var view: TodoListVC?
+    private weak var view: TodoListVCProtocol?
     private var tasks = [TaskData]()
     
     // MARK:- Life Cycle Methods
-    init(view: TodoListVC) {
+    init(view: TodoListVCProtocol) {
         self.view = view
     }
     
@@ -59,8 +59,8 @@ class TodoListPresenter {
     
 }
 
+//MARK:- Private Methods
 extension TodoListPresenter {
-    // MARK:- Private Methods
     // delete task by id from api
     private func deleteTask(with index: Int) {
         self.view?.showIndicator()
