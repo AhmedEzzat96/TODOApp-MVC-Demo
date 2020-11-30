@@ -81,7 +81,7 @@
 		06F2D6A22548FD0E00680804 /* UIButton+RoundedBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+RoundedBorder.swift"; sourceTree = "<group>"; };
 		658DB19265AC46253A8B6597 /* Pods-TODOApp-MVC-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TODOApp-MVC-Demo.debug.xcconfig"; path = "Target Support Files/Pods-TODOApp-MVC-Demo/Pods-TODOApp-MVC-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		91F675E6B4DF70681B4B8BD5 /* Pods_TODOApp_MVC_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TODOApp_MVC_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B76E568D2548A24A00C13D43 /* TODOApp-MVC-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TODOApp-MVC-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B76E568D2548A24A00C13D43 /* TODOApp-MVP-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TODOApp-MVP-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B76E56902548A24A00C13D43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B76E56942548A24A00C13D43 /* TodoListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListVC.swift; sourceTree = "<group>"; };
 		B76E56972548A24A00C13D43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Authentication.storyboard; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 		B76E56842548A24A00C13D43 = {
 			isa = PBXGroup;
 			children = (
-				B76E568F2548A24A00C13D43 /* TODOApp-MVC-Demo */,
+				B76E568F2548A24A00C13D43 /* TODOApp-MVP-Demo */,
 				B76E568E2548A24A00C13D43 /* Products */,
 				61A3BCCE7556368E1692BD67 /* Pods */,
 				336C7228F7A110C5F16A2F09 /* Frameworks */,
@@ -253,12 +253,12 @@
 		B76E568E2548A24A00C13D43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B76E568D2548A24A00C13D43 /* TODOApp-MVC-Demo.app */,
+				B76E568D2548A24A00C13D43 /* TODOApp-MVP-Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B76E568F2548A24A00C13D43 /* TODOApp-MVC-Demo */ = {
+		B76E568F2548A24A00C13D43 /* TODOApp-MVP-Demo */ = {
 			isa = PBXGroup;
 			children = (
 				B76E56902548A24A00C13D43 /* AppDelegate.swift */,
@@ -272,7 +272,7 @@
 				B76E56A72548A2D300C13D43 /* Resources */,
 				B76E569E2548A24C00C13D43 /* Info.plist */,
 			);
-			path = "TODOApp-MVC-Demo";
+			path = "TODOApp-MVP-Demo";
 			sourceTree = "<group>";
 		};
 		B76E56A42548A2B400C13D43 /* Networking */ = {
@@ -383,9 +383,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B76E568C2548A24A00C13D43 /* TODOApp-MVC-Demo */ = {
+		B76E568C2548A24A00C13D43 /* TODOApp-MVP-Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B76E56A12548A24C00C13D43 /* Build configuration list for PBXNativeTarget "TODOApp-MVC-Demo" */;
+			buildConfigurationList = B76E56A12548A24C00C13D43 /* Build configuration list for PBXNativeTarget "TODOApp-MVP-Demo" */;
 			buildPhases = (
 				1B3F5FEDAF17FC907A96F2BC /* [CP] Check Pods Manifest.lock */,
 				B76E56892548A24A00C13D43 /* Sources */,
@@ -397,9 +397,9 @@
 			);
 			dependencies = (
 			);
-			name = "TODOApp-MVC-Demo";
+			name = "TODOApp-MVP-Demo";
 			productName = "TODOApp-MVC-Demo";
-			productReference = B76E568D2548A24A00C13D43 /* TODOApp-MVC-Demo.app */;
+			productReference = B76E568D2548A24A00C13D43 /* TODOApp-MVP-Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -417,7 +417,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B76E56882548A24A00C13D43 /* Build configuration list for PBXProject "TODOApp-MVC-Demo" */;
+			buildConfigurationList = B76E56882548A24A00C13D43 /* Build configuration list for PBXProject "TODOApp-MVP-Demo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -430,7 +430,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B76E568C2548A24A00C13D43 /* TODOApp-MVC-Demo */,
+				B76E568C2548A24A00C13D43 /* TODOApp-MVP-Demo */,
 			);
 		};
 /* End PBXProject section */
@@ -679,14 +679,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GR45BCY358;
-				INFOPLIST_FILE = "TODOApp-MVC-Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/TODOApp-MVP-Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ideaeg.TODOApp-MVC-Demoooo";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ideaeg.TODOApp-MVP-Demoooo";
+				PRODUCT_NAME = "TODOApp-MVP-Demo";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -699,14 +699,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = GR45BCY358;
-				INFOPLIST_FILE = "TODOApp-MVC-Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/TODOApp-MVP-Demo/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ideaeg.TODOApp-MVC-Demoooo";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ideaeg.TODOApp-MVP-Demoooo";
+				PRODUCT_NAME = "TODOApp-MVP-Demo";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -715,7 +715,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B76E56882548A24A00C13D43 /* Build configuration list for PBXProject "TODOApp-MVC-Demo" */ = {
+		B76E56882548A24A00C13D43 /* Build configuration list for PBXProject "TODOApp-MVP-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B76E569F2548A24C00C13D43 /* Debug */,
@@ -724,7 +724,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B76E56A12548A24C00C13D43 /* Build configuration list for PBXNativeTarget "TODOApp-MVC-Demo" */ = {
+		B76E56A12548A24C00C13D43 /* Build configuration list for PBXNativeTarget "TODOApp-MVP-Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B76E56A22548A24C00C13D43 /* Debug */,
